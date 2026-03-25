@@ -1,235 +1,840 @@
-/**
- * GET 307 — AI & ML Study Site
- * script.js — Global Animations & Quiz Engine
- *
- * WHAT THIS FILE DOES:
- * 1. Typewriter Effect    → Animates the masthead title on the homepage character-by-character
- * 2. Scroll Fade-Ins      → IntersectionObserver watches .article-card, .toc-card,
- *                           .timeline-item elements and adds .visible class when they
- *                           enter the viewport, triggering CSS transitions in style.css
- * 3. Nav Active State     → Highlights the current page link in the sticky nav bar
- * 4. Quiz Engine          → Handles all quiz interactions:
- *                           - Option selection with correct/wrong feedback
- *                           - Score calculation on submit
- *                           - Answer explanation reveal
- */
+/* ============================================================
+   GET 307 — AI & ML Study Site
+   style.css — Global Newspaper / Retro Theme
+   ============================================================
+   LAYOUT SYSTEM:
+   - .newspaper-grid  → 3-column CSS Grid (mimics broadsheet columns)
+   - .col-span-2      → article spanning two columns
+   - .col-span-3      → full-width banner/headline
+   - .col-break       → vertical rule between columns (::after pseudo)
+   - Individual topic pages use .page-grid with 2-col layouts
+   ============================================================ */
 
-document.addEventListener('DOMContentLoaded', () => {
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Lora:ital,wght@0,400;0,600;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=IM+Fell+English:ital@0;1&display=swap');
 
-  /* ──────────────────────────────────────────────
-     1. TYPEWRITER EFFECT
-     Targets any element with id="typewriter-target"
-     (used in index.html masthead title)
-  ────────────────────────────────────────────── */
-  const typewriterEl = document.getElementById('typewriter-target');
-  if (typewriterEl) {
-    const fullText = typewriterEl.dataset.text || typewriterEl.textContent;
-    typewriterEl.textContent = '';
-    typewriterEl.classList.add('typewriter-cursor');
+/* ── CSS Custom Properties ── */
+:root {
+  --ink:         #1a1008;
+  --ink-light:   #3b2d1f;
+  --ink-faint:   #6b5744;
+  --paper:       #f5f0e8;
+  --paper-warm:  #ede7d4;
+  --paper-dark:  #d9cdb8;
+  --sepia:       #8b6914;
+  --sepia-light: #c49a3c;
+  --rule:        #1a1008;
+  --rule-thin:   #3b2d1f;
+  --red-accent:  #8b1a1a;
 
-    let i = 0;
-    const typeSpeed = 60; // ms per character
+  --font-headline: 'Playfair Display', 'Georgia', serif;
+  --font-masthead: 'UnifrakturMaguntia', cursive;
+  --font-body:     'Lora', 'Georgia', serif;
+  --font-mono:     'Courier Prime', 'Courier New', monospace;
+  --font-drop:     'IM Fell English', serif;
 
-    function typeChar() {
-      if (i < fullText.length) {
-        typewriterEl.textContent += fullText[i];
-        i++;
-        setTimeout(typeChar, typeSpeed);
-      } else {
-        // Remove cursor class after a short delay
-        setTimeout(() => typewriterEl.classList.remove('typewriter-cursor'), 1200);
-      }
-    }
+  --col-gap: 2rem;
+  --max-w:   1200px;
+}
 
-    // Small delay before starting typewriter
-    setTimeout(typeChar, 400);
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  /* Subtle paper grain texture via SVG noise */
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+}
+
+/* ── Typography Hierarchy ── */
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-headline);
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 900; }
+h2 { font-size: clamp(1.4rem, 3vw, 2.2rem); font-weight: 700; }
+h3 { font-size: clamp(1.1rem, 2vw, 1.5rem); font-weight: 700; font-style: italic; }
+h4 { font-size: 1.1rem; font-weight: 700; font-family: var(--font-mono); text-transform: uppercase; letter-spacing: 0.08em; }
+
+p { margin-bottom: 1rem; }
+a { color: var(--red-accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+strong { font-weight: 700; color: var(--ink); }
+em { font-style: italic; color: var(--ink-light); }
+
+code, pre {
+  font-family: var(--font-mono);
+  background: var(--paper-dark);
+  border: 1px solid var(--rule-thin);
+  color: var(--ink-light);
+}
+code { padding: 0.1em 0.4em; font-size: 0.88em; border-radius: 2px; }
+pre {
+  padding: 1.2rem;
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  margin: 1.5rem 0;
+}
+
+/* ── Horizontal Rules — Newspaper Dividers ── */
+hr {
+  border: none;
+  height: 1px;
+  background: var(--rule);
+  margin: 0.6rem 0;
+}
+hr.thick { height: 3px; margin: 0.3rem 0; }
+hr.thin  { height: 1px; opacity: 0.4; margin: 0.4rem 0; }
+hr.double {
+  border-top: 3px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  height: 6px;
+  background: transparent;
+  margin: 0.8rem 0;
+}
+
+/* ── Site Header / Masthead ── */
+.site-masthead {
+  background: var(--paper-warm);
+  border-bottom: 4px double var(--rule);
+  padding: 0.5rem 0 1rem;
+  text-align: center;
+}
+
+.masthead-top-rule {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.4rem 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--ink-faint);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.8rem;
+}
+
+.masthead-title {
+  font-family: var(--font-masthead);
+  font-size: clamp(3rem, 10vw, 7rem);
+  color: var(--ink);
+  line-height: 1;
+  letter-spacing: -0.01em;
+  /* Typewriter animation targets this element on the homepage */
+}
+
+.masthead-subtitle {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-light);
+  margin-top: 0.3rem;
+  border-top: 1px solid var(--rule-thin);
+  border-bottom: 1px solid var(--rule-thin);
+  padding: 0.25rem 0;
+  display: inline-block;
+}
+
+.masthead-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--ink-faint);
+  margin-top: 0.3rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+}
+
+/* ── Navigation Bar ── */
+.site-nav {
+  background: var(--ink);
+  padding: 0.5rem 0;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.site-nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.2rem 0.1rem;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.site-nav li { display: inline; }
+
+.site-nav a {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--paper);
+  padding: 0.3rem 0.7rem;
+  display: inline-block;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.site-nav a:hover, .site-nav a.active {
+  color: var(--ink);
+  background: var(--sepia-light);
+  border-color: var(--sepia-light);
+  text-decoration: none;
+}
+
+/* ── Main Container ── */
+.container {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── Homepage Newspaper Grid ── */
+/*
+  .newspaper-grid creates a 3-column broadsheet layout.
+  Children can use .col-span-2 or .col-span-3 to span multiple columns.
+  CSS column-gap adds space; vertical column rules are drawn with
+  the .col-rule pseudo-elements approach using border-right on children.
+*/
+.newspaper-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0 var(--col-gap);
+  padding: 1.5rem 0;
+  position: relative;
+}
+
+.newspaper-grid .news-col {
+  /* Vertical rule separating columns */
+  border-right: 1px solid var(--rule-thin);
+  padding-right: var(--col-gap);
+}
+.newspaper-grid .news-col:last-child {
+  border-right: none;
+  padding-right: 0;
+}
+
+.col-span-2 { grid-column: span 2; }
+.col-span-3 { grid-column: span 3; }
+
+/* ── Article Card — Homepage ── */
+.article-card {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--rule-thin);
+  opacity: 0;
+  transform: translateY(20px);
+  /* Animation class .fade-in-up is toggled by script.js IntersectionObserver */
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.article-card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.article-card:last-child { border-bottom: none; }
+
+.article-card .kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--red-accent);
+  margin-bottom: 0.3rem;
+  font-weight: 700;
+}
+
+.article-card h2, .article-card h3 {
+  font-family: var(--font-headline);
+  margin-bottom: 0.5rem;
+}
+
+.article-card h2 { font-size: 1.6rem; }
+.article-card h3 { font-size: 1.1rem; }
+
+.article-card p { font-size: 0.9rem; color: var(--ink-light); margin-bottom: 0.8rem; }
+
+.read-more {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 1px;
+  display: inline-block;
+  transition: color 0.2s, border-color 0.2s;
+}
+.read-more:hover {
+  color: var(--red-accent);
+  border-color: var(--red-accent);
+  text-decoration: none;
+}
+
+/* ── Drop Cap ── */
+.drop-cap::first-letter {
+  font-family: var(--font-drop);
+  font-size: 4.5rem;
+  float: left;
+  line-height: 0.75;
+  margin: 0.05em 0.1em 0 0;
+  color: var(--ink);
+  font-weight: 400;
+}
+
+/* ── Byline ── */
+.byline {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-faint);
+  border-top: 1px solid var(--rule-thin);
+  border-bottom: 1px solid var(--rule-thin);
+  padding: 0.25rem 0;
+  margin: 0.8rem 0 1rem;
+}
+
+/* ── Topic Page Layout ── */
+/*
+  .page-grid creates a 2-column layout for topic pages:
+  - Left (wider): main article content
+  - Right (sidebar): definitions, callout boxes, key terms
+*/
+.page-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2.5rem;
+  padding: 2rem 0;
+}
+
+.page-main { /* Left main content column */ }
+.page-sidebar { /* Right sidebar */ }
+
+/* ── Page Header (topic pages) ── */
+.page-header {
+  background: var(--paper-warm);
+  border-bottom: 4px double var(--rule);
+  padding: 1.5rem 0 1rem;
+  margin-bottom: 0;
+}
+
+.page-header .section-label {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ink-faint);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.page-header h1 {
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-style: italic;
+}
+
+/* ── Section Headers within topics ── */
+.section-head {
+  margin: 2rem 0 1rem;
+}
+.section-head h2 {
+  font-size: 1.6rem;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 0.4rem;
+}
+.section-head .section-kicker {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--red-accent);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.3rem;
+}
+
+/* ── Analogy / Callout Boxes ── */
+.callout-box {
+  background: var(--paper-dark);
+  border-left: 4px solid var(--ink);
+  padding: 1.2rem 1.4rem;
+  margin: 1.5rem 0;
+  font-family: var(--font-body);
+  font-size: 0.92rem;
+}
+
+.callout-box .callout-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--red-accent);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.callout-box.analogy { border-left-color: var(--sepia); }
+.callout-box.warning { border-left-color: var(--red-accent); }
+.callout-box.definition { border-left-color: var(--ink-light); background: var(--paper-warm); }
+
+/* ── Sidebar Boxes ── */
+.sidebar-box {
+  border: 1px solid var(--rule-thin);
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.5rem;
+  background: var(--paper-warm);
+}
+
+.sidebar-box h4 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin-bottom: 0.8rem;
+}
+
+.sidebar-box ul {
+  list-style: none;
+  padding: 0;
+}
+.sidebar-box ul li {
+  font-size: 0.88rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--paper-dark);
+  color: var(--ink-light);
+}
+.sidebar-box ul li:last-child { border-bottom: none; }
+.sidebar-box ul li::before {
+  content: '▸ ';
+  color: var(--red-accent);
+  font-size: 0.7rem;
+}
+
+/* ── Data Table ── */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  margin: 1.5rem 0;
+  font-family: var(--font-mono);
+}
+thead {
+  background: var(--ink);
+  color: var(--paper);
+}
+thead th {
+  padding: 0.6rem 0.8rem;
+  text-align: left;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+tbody tr { border-bottom: 1px solid var(--paper-dark); }
+tbody tr:nth-child(even) { background: var(--paper-dark); }
+tbody td { padding: 0.55rem 0.8rem; color: var(--ink-light); }
+
+/* ── Step / Workflow List ── */
+.workflow-steps {
+  counter-reset: step-counter;
+  list-style: none;
+  padding: 0;
+  margin: 1.2rem 0;
+}
+.workflow-steps li {
+  counter-increment: step-counter;
+  display: flex;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  border-bottom: 1px dotted var(--rule-thin);
+  align-items: flex-start;
+}
+.workflow-steps li:last-child { border-bottom: none; }
+.workflow-steps li::before {
+  content: counter(step-counter, decimal-leading-zero);
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink-faint);
+  flex-shrink: 0;
+  line-height: 1;
+  padding-top: 0.1rem;
+}
+.workflow-steps li .step-body { flex: 1; }
+.workflow-steps li .step-title {
+  font-family: var(--font-headline);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.25rem;
+}
+.workflow-steps li .step-desc {
+  font-size: 0.88rem;
+  color: var(--ink-light);
+  margin: 0;
+}
+
+/* ── Pull Quote ── */
+.pull-quote {
+  border-top: 3px solid var(--rule);
+  border-bottom: 3px solid var(--rule);
+  padding: 1rem 0;
+  margin: 2rem 0;
+  text-align: center;
+}
+.pull-quote p {
+  font-family: var(--font-headline);
+  font-size: 1.4rem;
+  font-style: italic;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.4;
+}
+.pull-quote cite {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  display: block;
+  margin-top: 0.5rem;
+}
+
+/* ── Quiz Section ── */
+.quiz-section {
+  border: 2px solid var(--rule);
+  margin: 3rem 0 2rem;
+  background: var(--paper-warm);
+}
+
+.quiz-header {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.quiz-header h2 {
+  color: var(--paper);
+  font-size: 1.1rem;
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-style: normal;
+}
+
+.quiz-body { padding: 1.5rem; }
+
+.quiz-question {
+  border-bottom: 1px solid var(--paper-dark);
+  padding: 1.2rem 0;
+}
+.quiz-question:last-of-type { border-bottom: none; }
+
+.quiz-question .q-num {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--red-accent);
+  font-weight: 700;
+  margin-bottom: 0.4rem;
+}
+
+.quiz-question .q-text {
+  font-family: var(--font-headline);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  color: var(--ink);
+}
+
+.quiz-options {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+.quiz-options li button {
+  width: 100%;
+  text-align: left;
+  background: var(--paper);
+  border: 1px solid var(--rule-thin);
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-body);
+  font-size: 0.88rem;
+  color: var(--ink-light);
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+  /* Hover animation triggered in script.js */
+}
+.quiz-options li button:hover { background: var(--paper-dark); border-color: var(--ink); color: var(--ink); }
+.quiz-options li button.correct { background: #c8e6c9; border-color: #2e7d32; color: #1b5e20; }
+.quiz-options li button.wrong   { background: #ffcdd2; border-color: #c62828; color: #b71c1c; }
+.quiz-options li button.revealed { background: #fff9c4; border-color: #f57f17; color: #4a2c00; }
+.quiz-options li button:disabled { cursor: default; }
+
+.quiz-explanation {
+  display: none;
+  margin-top: 0.8rem;
+  padding: 0.8rem;
+  background: var(--paper-dark);
+  border-left: 3px solid var(--sepia);
+  font-size: 0.88rem;
+  color: var(--ink-light);
+  font-style: italic;
+}
+.quiz-explanation.visible { display: block; }
+
+.quiz-score-panel {
+  display: none;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 1.2rem 1.5rem;
+  text-align: center;
+  font-family: var(--font-mono);
+  border-top: 2px solid var(--sepia-light);
+}
+.quiz-score-panel.visible { display: block; }
+.quiz-score-panel .score-num {
+  font-size: 3rem;
+  font-family: var(--font-headline);
+  font-weight: 900;
+  color: var(--sepia-light);
+  display: block;
+}
+.quiz-score-panel p { font-size: 0.85rem; color: var(--paper-dark); margin: 0; }
+
+.quiz-submit-btn {
+  display: block;
+  margin: 1.2rem auto 0;
+  background: var(--ink);
+  color: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 0.7rem 2.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  cursor: pointer;
+  transition: background 0.25s, color 0.25s;
+}
+.quiz-submit-btn:hover { background: var(--paper); color: var(--ink); }
+
+/* ── Timeline (History) ── */
+.timeline {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  position: relative;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 3.5rem;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: var(--rule-thin);
+}
+.timeline-item {
+  display: flex;
+  gap: 1.2rem;
+  margin-bottom: 1.2rem;
+  align-items: flex-start;
+  position: relative;
+  opacity: 0;
+  transform: translateX(-15px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.timeline-item.visible { opacity: 1; transform: translateX(0); }
+
+.timeline-year {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--sepia);
+  width: 3rem;
+  text-align: right;
+  flex-shrink: 0;
+  padding-top: 0.1rem;
+}
+.timeline-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 2px solid var(--paper);
+  flex-shrink: 0;
+  margin-top: 0.35rem;
+  z-index: 1;
+}
+.timeline-content { flex: 1; }
+.timeline-content strong { display: block; font-size: 0.92rem; margin-bottom: 0.2rem; }
+.timeline-content p { font-size: 0.85rem; color: var(--ink-light); margin: 0; }
+
+/* ── Feature Tags / Badges ── */
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid currentColor;
+  margin: 0.1rem;
+}
+.badge-ink   { color: var(--ink); }
+.badge-red   { color: var(--red-accent); }
+.badge-sepia { color: var(--sepia); }
+
+/* ── Footer ── */
+.site-footer {
+  background: var(--ink);
+  color: var(--paper-dark);
+  text-align: center;
+  padding: 2rem 1.5rem;
+  margin-top: 3rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.site-footer a { color: var(--sepia-light); }
+.site-footer .footer-rule {
+  border-color: var(--ink-light);
+  margin: 1rem auto;
+  max-width: 200px;
+}
+
+/* ── Back to Home Button ── */
+.back-link {
+  display: inline-block;
+  margin: 1.2rem 0;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-faint);
+  border: 1px solid var(--ink-faint);
+  padding: 0.3rem 0.8rem;
+  transition: all 0.2s;
+}
+.back-link:hover { color: var(--ink); border-color: var(--ink); background: var(--paper-dark); text-decoration: none; }
+
+/* ── Index / TOC Cards (homepage) ── */
+.toc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 0;
+  border: 2px solid var(--rule);
+  margin: 1.5rem 0;
+}
+
+.toc-card {
+  border: 1px solid var(--rule-thin);
+  padding: 1.4rem;
+  background: var(--paper);
+  transition: background 0.2s;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.5s ease, background 0.2s;
+  text-decoration: none;
+  display: block;
+  color: inherit;
+}
+.toc-card.visible { opacity: 1; transform: translateY(0); }
+.toc-card:hover { background: var(--paper-dark); text-decoration: none; }
+
+.toc-card .card-num {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--paper-dark);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.toc-card .card-title {
+  font-family: var(--font-headline);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+}
+.toc-card .card-desc {
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .newspaper-grid {
+    grid-template-columns: 1fr 1fr;
   }
+  .col-span-3 { grid-column: span 2; }
 
-
-  /* ──────────────────────────────────────────────
-     2. SCROLL FADE-IN (IntersectionObserver)
-     Watches for .article-card, .toc-card, .timeline-item
-     and adds .visible when they scroll into view.
-     CSS in style.css handles the actual transition.
-  ────────────────────────────────────────────── */
-  const fadeTargets = document.querySelectorAll(
-    '.article-card, .toc-card, .timeline-item, .workflow-step-item'
-  );
-
-  if (fadeTargets.length > 0) {
-    const fadeObserver = new IntersectionObserver((entries) => {
-      entries.forEach((entry, idx) => {
-        if (entry.isIntersecting) {
-          // Stagger delay based on element index within its parent
-          const siblings = Array.from(entry.target.parentElement.children);
-          const siblingIdx = siblings.indexOf(entry.target);
-          entry.target.style.transitionDelay = `${siblingIdx * 80}ms`;
-          entry.target.classList.add('visible');
-          fadeObserver.unobserve(entry.target); // Fire once only
-        }
-      });
-    }, {
-      threshold: 0.1,     // Trigger when 10% visible
-      rootMargin: '0px 0px -40px 0px' // Slightly before fully in view
-    });
-
-    fadeTargets.forEach(el => fadeObserver.observe(el));
+  .page-grid {
+    grid-template-columns: 1fr;
   }
+  .page-sidebar { order: -1; }
+}
 
-
-  /* ──────────────────────────────────────────────
-     3. NAV ACTIVE STATE
-     Compares the current page URL to each nav link
-     and adds class="active" to the matching anchor.
-  ────────────────────────────────────────────── */
-  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
-  const navLinks = document.querySelectorAll('.site-nav a');
-  navLinks.forEach(link => {
-    const linkPage = link.getAttribute('href');
-    if (linkPage === currentPage || (currentPage === '' && linkPage === 'index.html')) {
-      link.classList.add('active');
-    }
-  });
-
-
-  /* ──────────────────────────────────────────────
-     4. QUIZ ENGINE
-     Expects this HTML structure in topic pages:
-     .quiz-section
-       .quiz-body
-         .quiz-question[data-answer="A"]
-           .q-num, .q-text
-           .quiz-options > li > button[data-option="A"]
-           .quiz-explanation
-       button.quiz-submit-btn
-       .quiz-score-panel
-  ────────────────────────────────────────────── */
-  const quizSection = document.querySelector('.quiz-section');
-
-  if (quizSection) {
-    const questions = quizSection.querySelectorAll('.quiz-question');
-    const submitBtn = quizSection.querySelector('.quiz-submit-btn');
-    const scorePanel = quizSection.querySelector('.quiz-score-panel');
-
-    // Track selected answers: { questionIndex: selectedButton }
-    const userSelections = {};
-
-    // ── Option click handler ──
-    questions.forEach((question, qIdx) => {
-      const options = question.querySelectorAll('.quiz-options li button');
-
-      options.forEach(btn => {
-        btn.addEventListener('click', () => {
-          // Remove previous selection highlight
-          options.forEach(b => b.classList.remove('selected'));
-          btn.classList.add('selected');
-          btn.style.fontWeight = '700';
-
-          // Store selection
-          userSelections[qIdx] = btn.dataset.option;
-
-          // Visual press effect (subtle animation)
-          btn.style.transform = 'scale(0.97)';
-          setTimeout(() => btn.style.transform = '', 100);
-        });
-      });
-    });
-
-    // ── Submit / Reveal handler ──
-    if (submitBtn) {
-      submitBtn.addEventListener('click', () => {
-        let score = 0;
-
-        questions.forEach((question, qIdx) => {
-          const correctAnswer = question.dataset.answer;
-          const userAnswer    = userSelections[qIdx];
-          const options       = question.querySelectorAll('.quiz-options li button');
-          const explanation   = question.querySelector('.quiz-explanation');
-
-          // Disable all buttons in this question
-          options.forEach(btn => {
-            btn.disabled = true;
-            btn.classList.remove('selected');
-            btn.style.fontWeight = '';
-
-            if (btn.dataset.option === correctAnswer) {
-              btn.classList.add('correct'); // Always reveal correct
-            } else if (btn.dataset.option === userAnswer && userAnswer !== correctAnswer) {
-              btn.classList.add('wrong');   // Mark wrong selection
-            }
-          });
-
-          // Show explanation
-          if (explanation) explanation.classList.add('visible');
-
-          // Score
-          if (userAnswer === correctAnswer) score++;
-        });
-
-        // Show score panel
-        if (scorePanel) {
-          const scoreNum   = scorePanel.querySelector('.score-num');
-          const scoreMsg   = scorePanel.querySelector('.score-msg');
-          const totalQ     = questions.length;
-          const percentage = Math.round((score / totalQ) * 100);
-
-          if (scoreNum) scoreNum.textContent = `${score} / ${totalQ}`;
-
-          // Dynamic message based on score
-          const messages = {
-            100: "Full marks! You are a machine — almost literally. Outstanding work.",
-            80:  "Excellent! You have a strong grasp of the material. Review the ones you missed.",
-            60:  "Good effort. A few concepts need revisiting — check the explanations above.",
-            40:  "Keep pushing. Re-read the topic sections and try again.",
-            0:   "Don't worry — understanding takes time. Study the material and return."
-          };
-          const msgKey = Object.keys(messages)
-            .map(Number)
-            .filter(k => percentage >= k)
-            .sort((a, b) => b - a)[0];
-
-          if (scoreMsg) scoreMsg.textContent = messages[msgKey] || messages[0];
-          scorePanel.classList.add('visible');
-
-          // Scroll to score panel smoothly
-          scorePanel.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
-
-        // Change submit button text
-        submitBtn.textContent = 'Reset Quiz';
-        submitBtn.style.background = 'var(--sepia)';
-        submitBtn.style.borderColor = 'var(--sepia)';
-
-        // Reset handler
-        submitBtn.addEventListener('click', () => window.location.reload(), { once: true });
-      });
-    }
-
-    // ── Hover animation on quiz option buttons (ink-press effect) ──
-    const allOptionBtns = quizSection.querySelectorAll('.quiz-options li button');
-    allOptionBtns.forEach(btn => {
-      btn.addEventListener('mouseenter', () => {
-        if (!btn.disabled) btn.style.letterSpacing = '0.01em';
-      });
-      btn.addEventListener('mouseleave', () => {
-        if (!btn.disabled) btn.style.letterSpacing = '';
-      });
-    });
+@media (max-width: 600px) {
+  .newspaper-grid, .toc-grid {
+    grid-template-columns: 1fr;
   }
+  .col-span-2, .col-span-3 { grid-column: span 1; }
 
+  .quiz-options { grid-template-columns: 1fr; }
 
-  /* ──────────────────────────────────────────────
-     5. SUBTLE PAGE ENTRANCE
-     Fades in the main content block with a brief
-     delay after page load — era-appropriate, gentle.
-  ────────────────────────────────────────────── */
-  const mainContent = document.querySelector('.container, main');
-  if (mainContent) {
-    mainContent.style.opacity = '0';
-    mainContent.style.transition = 'opacity 0.5s ease';
-    requestAnimationFrame(() => {
-      setTimeout(() => { mainContent.style.opacity = '1'; }, 100);
-    });
-  }
+  .masthead-title { font-size: 3rem; }
 
-});
+  .site-nav ul { gap: 0.1rem; }
+  .site-nav a { font-size: 0.65rem; padding: 0.25rem 0.5rem; }
+
+  .timeline::before { left: 2.5rem; }
+  .timeline-year { width: 2.5rem; font-size: 0.78rem; }
+}
+
+/* ── Animations ── */
+/* script.js adds/removes these classes via IntersectionObserver */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-20px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+/* Typewriter cursor blink — applied to #typewriter-target by script.js */
+.typewriter-cursor::after {
+  content: '|';
+  animation: blink 0.8s step-end infinite;
+  color: var(--red-accent);
+  font-weight: 100;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}

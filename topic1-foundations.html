@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic I: Foundations of AI — GET 307</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-masthead">
+    <div class="masthead-top-rule container">
+      <span>GET 307 · FUTMINNA · SIPET</span>
+      <span>The AI Intelligencer</span>
+      <span>Topic I of VI</span>
+    </div>
+    <h1 class="masthead-title" style="font-size: clamp(2.5rem, 7vw, 5rem);">The AI Intelligencer</h1>
+    <p class="masthead-subtitle">Your Complete Study Companion for GET 307</p>
+  </header>
+
+  <nav class="site-nav" aria-label="Main Navigation">
+    <ul>
+      <li><a href="index.html">Front Page</a></li>
+      <li><a href="topic1-foundations.html">I. AI Foundations</a></li>
+      <li><a href="topic2-machine-learning.html">II. Machine Learning</a></li>
+      <li><a href="topic3-ml-workflow.html">III. ML Workflow</a></li>
+      <li><a href="topic4-algorithms.html">IV. Algorithms</a></li>
+      <li><a href="topic5-evaluation.html">V. Evaluation</a></li>
+      <li><a href="topic6-ethics.html">VI. Ethics &amp; Governance</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════
+       PAGE HEADER
+  ═══════════════════════════════════════════════ -->
+  <div class="page-header">
+    <div class="container">
+      <a href="index.html" class="back-link">← Front Page</a>
+      <span class="section-label">Topic I · GET 307 · Week 1</span>
+      <hr />
+      <h1>Foundations of Artificial Intelligence</h1>
+      <div class="byline">Compiled from GET 307 lecture notes · Dr. I.M. Simeon, ABE Dept., FUTMINNA</div>
+    </div>
+  </div>
+
+  <main>
+  <div class="container">
+    <hr class="thick" />
+
+    <!-- ═══════════════════════════════════════════
+         2-COLUMN PAGE GRID
+         Left: .page-main (main article content)
+         Right: .page-sidebar (key terms, callouts)
+         See style.css .page-grid for documentation
+    ═══════════════════════════════════════════ -->
+    <div class="page-grid">
+
+      <!-- ────────────────────────────────────────
+           MAIN CONTENT COLUMN
+      ──────────────────────────────────────────── -->
+      <article class="page-main">
+
+        <!-- ── Section 1: What is AI? ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 1</span>
+          <h2>What Is Artificial Intelligence?</h2>
+        </div>
+
+        <p class="drop-cap">
+          Artificial intelligence is technology that enables computers and machines to simulate
+          human learning, comprehension, problem-solving, decision-making, creativity, and autonomy.
+          In simpler terms: it is software that can think — at least in the functional sense — so
+          that it can act intelligently without being given explicit step-by-step instructions for
+          every possible situation.
+        </p>
+
+        <p>
+          AI-powered applications and devices can see and identify objects (computer vision),
+          understand and respond to human language (natural language processing), learn from new
+          information and experience (machine learning), make detailed recommendations, and act
+          independently — the classic example being a self-driving car.
+        </p>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: The Apprentice Chef</span>
+          <p>
+            Think of traditional programming like giving a chef a rigid recipe book. Every dish
+            must be cooked exactly as written. If an ingredient is missing, the chef is stuck.
+            Artificial intelligence is like training an apprentice: you show them hundreds of
+            dishes, explain flavour principles, and over time they develop the <em>judgment</em>
+            to improvise when an ingredient is missing — and even invent new recipes. The apprentice
+            learned from examples, not a fixed rulebook.
+          </p>
+        </div>
+
+        <!-- ── Section 2: The AI Hierarchy ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 2</span>
+          <h2>The Three-Layer Hierarchy: AI → ML → Deep Learning</h2>
+        </div>
+
+        <p>
+          These three terms are often used interchangeably, but they are nested concepts — think of
+          them as concentric circles, where each inner circle is a more specialized subset of the one
+          outside it.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>What It Is</th>
+              <th>Analogy</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Artificial Intelligence</strong></td>
+              <td>The broad field of making machines behave intelligently</td>
+              <td>The whole ocean</td>
+            </tr>
+            <tr>
+              <td><strong>Machine Learning</strong></td>
+              <td>AI systems that learn patterns from data</td>
+              <td>A region of the ocean</td>
+            </tr>
+            <tr>
+              <td><strong>Deep Learning</strong></td>
+              <td>ML using multi-layered neural networks</td>
+              <td>A deep trench within that region</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ── Section 3: Weak vs Strong AI ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 3</span>
+          <h2>Weak AI vs. Strong AI</h2>
+        </div>
+
+        <p>
+          To contextualize AI complexity, researchers distinguish between two types based on their
+          scope and sophistication:
+        </p>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Definition: Weak AI (Narrow AI)</span>
+          <p>
+            AI systems designed to perform a <em>specific task or set of tasks</em>. Examples include
+            Amazon's Alexa (voice commands), Apple's Siri, social media recommendation engines, and
+            Tesla's autopilot. These systems can be superhuman within their narrow domain but are
+            completely helpless outside it. Alexa cannot drive a car; Tesla's autopilot cannot answer
+            a customer service query.
+          </p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Definition: Strong AI (Artificial General Intelligence — AGI)</span>
+          <p>
+            A hypothetical AI with the ability to understand, learn, and apply knowledge across
+            <em>any task</em> at a level equal to or surpassing human intelligence. No known AI
+            system currently approaches this level of sophistication. Researchers debate whether
+            AGI is even possible without fundamentally new architectures. The self-aware robots of
+            science fiction remain firmly in that realm.
+          </p>
+        </div>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: The Specialist vs The Generalist Doctor</span>
+          <p>
+            Weak AI is like a brilliant cardiologist: extraordinary at diagnosing heart conditions,
+            but if you come in with a broken leg, they're lost. Strong AI would be the mythical
+            doctor who is equally expert in cardiology, neurology, orthopaedics, and surgery —
+            and can also cook your dinner and compose a symphony. That doctor doesn't exist yet.
+          </p>
+        </div>
+
+        <!-- ── Section 4: History ── -->
+        <div class="section-head" id="history">
+          <span class="section-kicker">Section 4</span>
+          <h2>A Brief History of AI</h2>
+        </div>
+
+        <p>
+          The concept of "a machine that thinks" is ancient, but the modern scientific field of AI
+          has key milestones worth knowing for your exams:
+        </p>
+
+        <!-- .timeline — animated by IntersectionObserver in script.js -->
+        <ul class="timeline">
+          <li class="timeline-item">
+            <span class="timeline-year">1950</span>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <strong>The Turing Test</strong>
+              <p>Alan Turing publishes "Computing Machinery and Intelligence," posing the famous question: "Can machines think?" He proposes the Turing Test to evaluate machine intelligence through conversation.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-year">1956</span>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <strong>AI Is Born at Dartmouth</strong>
+              <p>John McCarthy coins the term "artificial intelligence" at the Dartmouth Conference. Allen Newell, J.C. Shaw and Herbert Simon create the Logic Theorist, the first running AI program.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-year">1967</span>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <strong>The First Neural Network</strong>
+              <p>Frank Rosenblatt builds the Mark 1 Perceptron — a computer based on a neural network that "learned" through trial and error. A landmark, though Minsky and Papert's critique slowed further research.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-year">1980</span>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <strong>Backpropagation Goes Mainstream</strong>
+              <p>Neural networks using the backpropagation algorithm to train themselves become widely used in AI applications.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-year">1997</span>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <strong>Deep Blue Defeats Kasparov</strong>
+              <p>IBM's Deep Blue beats world chess champion Garry Kasparov. A landmark demonstration that specialized AI can surpass human experts in defined domains.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-year">2011</span>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <strong>Watson Wins Jeopardy!</strong>
+              <p>IBM Watson beats champions Ken Jennings and Brad Rutter at Jeopardy! Data science emerges as a discipline around this period.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-year">2016</span>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <strong>AlphaGo Defeats the World Champion</strong>
+              <p>DeepMind's AlphaGo beats Lee Sedol (world champion Go player) 4–1. The game has more possible moves than atoms in the universe — a stunning achievement for deep learning.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-year">2022</span>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <strong>The ChatGPT Moment</strong>
+              <p>OpenAI releases ChatGPT. Large Language Models (LLMs) enter mainstream use, triggering an enormous wave of interest, investment, and transformation across industries.</p>
+            </div>
+          </li>
+          <li class="timeline-item">
+            <span class="timeline-year">2024</span>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+              <strong>Multimodal AI &amp; Smaller Models</strong>
+              <p>Multimodal models that process text, images, and audio simultaneously provide richer AI experiences. Efficient smaller models challenge the "bigger is always better" assumption.</p>
+            </div>
+          </li>
+        </ul>
+
+        <!-- ── Section 5: Benefits ── -->
+        <div class="section-head" id="benefits">
+          <span class="section-kicker">Section 5</span>
+          <h2>Benefits of Artificial Intelligence</h2>
+        </div>
+
+        <p>AI offers documented advantages across virtually every industry. The most significant include:</p>
+
+        <div class="callout-box">
+          <span class="callout-label">01 · Automation of Repetitive Tasks</span>
+          <p>AI can handle digital tasks (data collection, preprocessing, entry) and physical tasks (warehouse stock-picking, manufacturing line operations), freeing humans for higher-value creative work.</p>
+        </div>
+
+        <div class="callout-box">
+          <span class="callout-label">02 · Enhanced Decision-Making</span>
+          <p>Whether providing decision support or fully automated decisions, AI enables faster, more accurate, data-driven predictions. Combined with automation, businesses can respond to crises in real time.</p>
+        </div>
+
+        <div class="callout-box">
+          <span class="callout-label">03 · Reduction of Human Error</span>
+          <p>AI guides people through proper processes, flags potential errors, and in some cases fully automates error-prone tasks — critical in healthcare, engineering, and manufacturing.</p>
+        </div>
+
+        <div class="callout-box">
+          <span class="callout-label">04 · 24×7 Availability &amp; Consistency</span>
+          <p>Unlike human workers, AI chatbots and automated systems never sleep, take breaks, or have bad days. They deliver consistent performance every time.</p>
+        </div>
+
+        <div class="callout-box">
+          <span class="callout-label">05 · Reduced Physical Risk</span>
+          <p>AI can perform dangerous work — handling explosives, deep-ocean operations, high-altitude tasks, and space exploration — eliminating the need to put human workers at risk.</p>
+        </div>
+
+        <!-- ── Section 6: Use Cases ── -->
+        <div class="section-head" id="use-cases">
+          <span class="section-kicker">Section 6</span>
+          <h2>Real-World AI Use Cases</h2>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>Industry</th><th>Application</th><th>AI Type Used</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Customer Service</td><td>AI chatbots &amp; virtual assistants for FAQs, ticketing</td><td>NLP + Generative AI</td></tr>
+            <tr><td>Finance</td><td>Fraud detection by flagging anomalous transactions</td><td>ML + Deep Learning</td></tr>
+            <tr><td>Retail</td><td>Personalized product recommendations &amp; marketing copy</td><td>Deep Learning + Gen AI</td></tr>
+            <tr><td>HR &amp; Recruitment</td><td>Resume screening, candidate matching, video interviews</td><td>NLP + Computer Vision</td></tr>
+            <tr><td>Software Dev</td><td>Code generation, modernization of legacy apps</td><td>Generative AI (LLMs)</td></tr>
+            <tr><td>Manufacturing</td><td>Predictive maintenance from IoT sensor data</td><td>ML (Time-Series)</td></tr>
+            <tr><td>Healthcare</td><td>AI-guided surgical robotics for consistent precision</td><td>Computer Vision + Robotics</td></tr>
+            <tr><td>Agriculture</td><td>Crop yield prediction, disease detection in plants</td><td>ML + Computer Vision</td></tr>
+          </tbody>
+        </table>
+
+        <!-- ── Section 7: Risks ── -->
+        <div class="section-head" id="risks">
+          <span class="section-kicker">Section 7</span>
+          <h2>AI Challenges and Risks</h2>
+        </div>
+
+        <p>
+          The rapid adoption of AI is necessary for competitiveness, but it comes with significant
+          challenges that every AI practitioner must understand and mitigate:
+        </p>
+
+        <div class="callout-box warning">
+          <span class="callout-label">⚠ Data Risks</span>
+          <p>AI systems rely on datasets that may be vulnerable to <strong>data poisoning</strong> (attackers corrupting training data), <strong>data bias</strong> (training data that doesn't represent all groups), and <strong>data breaches</strong>. A biased training dataset produces a biased model.</p>
+        </div>
+
+        <div class="callout-box warning">
+          <span class="callout-label">⚠ Model Risks</span>
+          <p>Threat actors can target AI models for theft, reverse engineering, or manipulation. Attackers may tamper with model weights and parameters — the core components that determine its behavior and accuracy.</p>
+        </div>
+
+        <div class="callout-box warning">
+          <span class="callout-label">⚠ Operational Risks</span>
+          <p><strong>Model drift</strong> occurs when a model's performance degrades over time as real-world data patterns change. Without monitoring and re-training, deployed models become less accurate and potentially harmful.</p>
+        </div>
+
+        <div class="callout-box warning">
+          <span class="callout-label">⚠ Ethics &amp; Legal Risks</span>
+          <p>Biased AI hiring tools may reinforce gender or racial stereotypes. Privacy violations occur when AI processes personal data without proper consent. Regulatory frameworks like GDPR impose strict legal obligations on organizations using AI with personal data.</p>
+        </div>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: The Biased Exam Marker</span>
+          <p>
+            Imagine a student grading system trained exclusively on essays from students at one
+            wealthy school. When deployed across all schools, it consistently penalizes writing styles
+            common at underfunded schools — not because the essays are worse, but because they
+            differ from what the system learned to value. The model reflects the bias baked into its
+            training data. This is exactly the risk with AI hiring systems trained on historical
+            hiring data from non-diverse workforces.
+          </p>
+        </div>
+
+      </article><!-- /page-main -->
+
+      <!-- ────────────────────────────────────────
+           SIDEBAR COLUMN
+      ──────────────────────────────────────────── -->
+      <aside class="page-sidebar">
+
+        <div class="sidebar-box">
+          <h4>Key Definitions</h4>
+          <ul>
+            <li><strong>AI:</strong> Technology simulating human intelligence</li>
+            <li><strong>Weak AI:</strong> Narrow, task-specific AI (all current AI)</li>
+            <li><strong>AGI:</strong> Theoretical general-purpose AI at human level</li>
+            <li><strong>Turing Test:</strong> Benchmark for machine intelligence via conversation</li>
+            <li><strong>Model Drift:</strong> Degradation of model accuracy over time</li>
+            <li><strong>GDPR:</strong> EU data protection regulation binding on AI systems</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>AI vs. Human Intelligence</h4>
+          <ul>
+            <li>AI: Consistent, no fatigue, scalable</li>
+            <li>AI: Cannot truly "understand" context</li>
+            <li>Human: Common sense &amp; creativity</li>
+            <li>Human: Generalizes from few examples</li>
+            <li>AI beats human: Speed, data volume</li>
+            <li>Human beats AI: Novel situations</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Key People</h4>
+          <ul>
+            <li>Alan Turing — Turing Test (1950)</li>
+            <li>John McCarthy — coined "AI" (1956)</li>
+            <li>Frank Rosenblatt — Perceptron (1967)</li>
+            <li>Stuart Russell &amp; Peter Norvig — AI textbook (1995)</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Quick Facts</h4>
+          <ul>
+            <li>First AI conference: Dartmouth, 1956</li>
+            <li>Deep Blue beat Kasparov in 1997</li>
+            <li>AlphaGo: Go has 14.5 trillion moves after 4 moves</li>
+            <li>Foundation model training: costs millions of USD</li>
+            <li>RLHF: Reinforcement Learning from Human Feedback</li>
+          </ul>
+        </div>
+
+        <!-- Navigation between topics -->
+        <div class="sidebar-box">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="index.html">← Front Page</a></li>
+            <li><a href="topic2-machine-learning.html">Topic II: Machine Learning →</a></li>
+          </ul>
+        </div>
+
+      </aside><!-- /page-sidebar -->
+
+    </div><!-- /page-grid -->
+
+    <!-- ═══════════════════════════════════════════════
+         QUIZ SECTION
+         .quiz-section is the root for quiz engine in script.js
+         data-answer on .quiz-question = correct option letter
+         data-option on each button = option letter
+    ═══════════════════════════════════════════════ -->
+    <section class="quiz-section" aria-label="Topic Quiz">
+      <div class="quiz-header">
+        <h2>📰 Quiz — Topic I: Foundations of AI</h2>
+        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--paper-dark);">5 Questions · Select &amp; Submit</span>
+      </div>
+
+      <div class="quiz-body">
+
+        <!-- Q1 -->
+        <div class="quiz-question" data-answer="B">
+          <p class="q-num">Question 01</p>
+          <p class="q-text">According to GET 307 course notes, which of the following best defines Artificial Intelligence?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Software that replaces all human jobs through automation</button></li>
+            <li><button data-option="B">B) Technology enabling machines to simulate human learning, problem-solving, decision-making, and autonomy</button></li>
+            <li><button data-option="C">C) A type of robot that physically resembles a human being</button></li>
+            <li><button data-option="D">D) A programming paradigm for writing very large and complex software systems</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: B.</strong> This is the exact definition from the course material. AI enables machines to simulate human cognitive functions — it is not limited to robots, automation alone, or any programming paradigm.
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question" data-answer="C">
+          <p class="q-num">Question 02</p>
+          <p class="q-text">John McCarthy coined the term "Artificial Intelligence" at which event, and in which year?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) The MIT Symposium, 1950</button></li>
+            <li><button data-option="B">B) The Turing Lecture, 1955</button></li>
+            <li><button data-option="C">C) The Dartmouth Conference, 1956</button></li>
+            <li><button data-option="D">D) The IEEE Convention, 1960</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: C.</strong> The Dartmouth Conference in 1956 was the founding moment of AI as an academic discipline. McCarthy also went on to invent the Lisp programming language.
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question" data-answer="A">
+          <p class="q-num">Question 03</p>
+          <p class="q-text">Weak AI (Narrow AI) is best characterized by which of the following?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Designed to perform specific tasks with superhuman capability in that narrow domain</button></li>
+            <li><button data-option="B">B) An AI with general intelligence equal to or exceeding humans across all tasks</button></li>
+            <li><button data-option="C">C) Any AI that uses deep learning and neural networks</button></li>
+            <li><button data-option="D">D) A robot capable of physical interaction with the real world</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: A.</strong> Weak/Narrow AI excels at specific tasks (chess, image recognition, translation) but cannot generalize outside its domain. ALL current AI systems, including ChatGPT, are Narrow AI.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="quiz-question" data-answer="D">
+          <p class="q-num">Question 04</p>
+          <p class="q-text">Which of the following correctly describes the relationship between AI, Machine Learning, and Deep Learning?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) They are three separate, unrelated fields of computer science</button></li>
+            <li><button data-option="B">B) Machine Learning is a superset that contains both AI and Deep Learning</button></li>
+            <li><button data-option="C">C) Deep Learning is the broadest concept, with AI as a specialized subset</button></li>
+            <li><button data-option="D">D) Deep Learning is a subset of Machine Learning, which is itself a subset of AI</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: D.</strong> Think concentric circles: AI is the largest concept → ML is a subset of AI (learning from data) → Deep Learning is a subset of ML (using multi-layer neural networks).
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="quiz-question" data-answer="B">
+          <p class="q-num">Question 05</p>
+          <p class="q-text">An AI hiring tool is trained on historical data from a company with a predominantly male workforce. When deployed, it consistently ranks female candidates lower. This scenario is an example of which AI risk?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Model drift — the model's performance degraded after deployment</button></li>
+            <li><button data-option="B">B) Data bias — biased training data producing a biased and unfair model</button></li>
+            <li><button data-option="C">C) Data poisoning — an attacker deliberately corrupted the training data</button></li>
+            <li><button data-option="D">D) Operational risk — the model was not monitored after deployment</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: B.</strong> Data bias occurs when the training dataset doesn't fairly represent all relevant groups. The model learns and amplifies historical human biases. This is a well-documented AI ethics problem distinct from data poisoning (which requires malicious external intent).
+          </div>
+        </div>
+
+        <button class="quiz-submit-btn">Submit Answers</button>
+
+      </div><!-- /quiz-body -->
+
+      <div class="quiz-score-panel">
+        <span class="score-num">0 / 5</span>
+        <p class="score-msg"></p>
+      </div>
+
+    </section><!-- /quiz-section -->
+
+    <hr />
+    <div style="display:flex; justify-content:space-between; padding: 1rem 0; font-family:var(--font-mono); font-size:0.75rem;">
+      <a href="index.html" class="back-link">← Front Page</a>
+      <a href="topic2-machine-learning.html" class="back-link">Topic II: Machine Learning →</a>
+    </div>
+
+  </div><!-- /container -->
+  </main>
+
+  <footer class="site-footer">
+    <p>The AI Intelligencer · GET 307 Study Site · FUTMINNA SIPET</p>
+    <hr class="footer-rule" />
+    <p>Topic I of VI · Foundations of AI</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
