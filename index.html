@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The AI Intelligencer — GET 307 Study Site</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════════
+       MASTHEAD — Typewriter animation targets
+       the h1#typewriter-target via script.js
+  ═══════════════════════════════════════════════ -->
+  <header class="site-masthead">
+    <div class="masthead-top-rule container">
+      <span>GET 307 · FUTMINNA · SIPET</span>
+      <span>Introduction to AI, ML &amp; Convergent Technologies</span>
+      <span>2025/26 Academic Session · 3 Units</span>
+    </div>
+    <h1 class="masthead-title" id="typewriter-target" data-text="The AI Intelligencer">The AI Intelligencer</h1>
+    <p class="masthead-subtitle">Your Complete Study Companion for GET 307</p>
+    <p class="masthead-kicker">Compiled from the lectures of Dr. I.M. Simeon &amp; SIPET Faculty · FUTMINNA</p>
+  </header>
+
+  <!-- ═══════════════════════════════════════════════
+       STICKY NAVIGATION BAR
+  ═══════════════════════════════════════════════ -->
+  <nav class="site-nav" aria-label="Main Navigation">
+    <ul>
+      <li><a href="index.html">Front Page</a></li>
+      <li><a href="topic1-foundations.html">I. AI Foundations</a></li>
+      <li><a href="topic2-machine-learning.html">II. Machine Learning</a></li>
+      <li><a href="topic3-ml-workflow.html">III. ML Workflow</a></li>
+      <li><a href="topic4-algorithms.html">IV. Algorithms</a></li>
+      <li><a href="topic5-evaluation.html">V. Evaluation</a></li>
+      <li><a href="topic6-ethics.html">VI. Ethics &amp; Governance</a></li>
+    </ul>
+  </nav>
+
+  <!-- ═══════════════════════════════════════════════
+       MAIN CONTENT — Newspaper Grid Layout
+  ═══════════════════════════════════════════════ -->
+  <main>
+  <div class="container">
+
+    <hr class="thick" />
+    <hr class="thin" />
+
+    <!-- ── Breaking Banner Headline ── -->
+    <div style="text-align:center; padding: 1.5rem 0 0.5rem;">
+      <span class="badge badge-red">Special Edition</span>
+      <h1 style="font-size: clamp(1.8rem, 5vw, 3.2rem); font-style: italic; margin: 0.5rem 0;">
+        Machines That Think: <br>A Comprehensive Guide to Artificial Intelligence
+      </h1>
+      <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--ink-faint); max-width: 600px; margin: 0 auto;">
+        Six in-depth study modules covering AI foundations, machine learning paradigms,
+        workflows, classical algorithms, performance evaluation, and ethical governance.
+      </p>
+    </div>
+
+    <hr class="double" style="margin: 1rem 0;" />
+
+    <!-- ═══════════════════════════════════════════
+         3-COLUMN NEWSPAPER GRID
+         .newspaper-grid = CSS Grid, 3 columns
+         .news-col = individual column with right border rule
+         See style.css for full grid documentation
+    ═══════════════════════════════════════════ -->
+    <div class="newspaper-grid">
+
+      <!-- ── COLUMN 1: AI Foundations & ML ── -->
+      <div class="news-col">
+
+        <!-- Article Card 1 -->
+        <article class="article-card">
+          <p class="kicker">Topic I · Foundations</p>
+          <h2>What Is Intelligence, Artificial or Otherwise?</h2>
+          <div class="byline">By Dr. I.M. Simeon · ABE Dept., FUTMINNA</div>
+          <p class="drop-cap">
+            Artificial intelligence is not science fiction. It is the technology already powering your
+            phone's face unlock, your streaming recommendations, and the spam filter on your email.
+            But what exactly is it? And how does it differ from human intelligence?
+          </p>
+          <p>
+            This first module explores the definition, scope, and historical milestones of AI — from
+            Alan Turing's 1950 thought experiment to the rise of ChatGPT in 2022. You will understand
+            the difference between <strong>Weak AI</strong> (what exists today) and the theoretical
+            <strong>Strong AI</strong> (artificial general intelligence).
+          </p>
+          <a href="topic1-foundations.html" class="read-more">Read Full Article →</a>
+        </article>
+
+        <!-- Article Card 2 -->
+        <article class="article-card">
+          <p class="kicker">Topic I · Continued</p>
+          <h3>Benefits, Use Cases &amp; The Risks We Cannot Ignore</h3>
+          <p>
+            AI promises automation of repetitive work, 24/7 availability, fewer human errors, and
+            enhanced decision-making. But it also introduces data risks, model bias, operational
+            failures, and ethical landmines that every engineer must understand.
+          </p>
+          <a href="topic1-foundations.html#benefits" class="read-more">Continue Reading →</a>
+        </article>
+
+      </div><!-- /news-col 1 -->
+
+      <!-- ── COLUMN 2: Machine Learning ── -->
+      <div class="news-col">
+
+        <article class="article-card">
+          <p class="kicker">Topic II · Machine Learning</p>
+          <h2>Teaching Machines to Learn Without Being Programmed</h2>
+          <div class="byline">Core GET 307 Material · Week 1–4</div>
+          <p>
+            Machine learning sits directly under AI in the technology hierarchy. Instead of writing
+            rules explicitly, we feed data to an algorithm and let it discover the rules itself.
+            This module breaks down the four major paradigms: supervised, unsupervised,
+            semi-supervised, and reinforcement learning.
+          </p>
+          <p>
+            It then dives into <strong>Deep Learning</strong> — the multilayer neural network
+            architecture that powers everything from image recognition to large language models —
+            and culminates with <strong>Generative AI</strong>, the technology behind ChatGPT,
+            DALL-E, and Midjourney.
+          </p>
+          <a href="topic2-machine-learning.html" class="read-more">Read Full Article →</a>
+        </article>
+
+        <article class="article-card">
+          <p class="kicker">Did You Know?</p>
+          <div class="pull-quote" style="margin: 0;">
+            <p>"Deep learning powers most of the AI applications in our lives today."</p>
+            <cite>— GET 307 Course Notes, Dr. I.M. Simeon</cite>
+          </div>
+        </article>
+
+      </div><!-- /news-col 2 -->
+
+      <!-- ── COLUMN 3: Workflow & Algorithms ── -->
+      <div class="news-col">
+
+        <article class="article-card">
+          <p class="kicker">Topic III · The Pipeline</p>
+          <h2>The 10-Stage ML Workflow: From Raw Data to Deployed Model</h2>
+          <div class="byline">Dr. I.M. Simeon · FUTMINNA</div>
+          <p>
+            Building a machine learning model is not one step — it is a disciplined pipeline.
+            This module maps all ten stages: problem definition, data preparation, EDA, feature
+            engineering, splitting, training, evaluation, and iterative improvement.
+          </p>
+          <a href="topic3-ml-workflow.html" class="read-more">Read Full Article →</a>
+        </article>
+
+        <article class="article-card">
+          <p class="kicker">Topic IV · Algorithms</p>
+          <h3>KNN, Linear Regression &amp; the Distance That Defines You</h3>
+          <p>
+            Distance-based models like k-Nearest Neighbors classify new data by looking at how
+            close it is to known examples. Linear models find a mathematical line that best
+            separates or predicts. This module breaks both down with real formulas and Python code.
+          </p>
+          <a href="topic4-algorithms.html" class="read-more">Read Full Article →</a>
+        </article>
+
+      </div><!-- /news-col 3 -->
+
+    </div><!-- /newspaper-grid -->
+
+    <hr class="double" />
+
+    <!-- ── FULL WIDTH: Table of Contents / Module Index ── -->
+    <section style="padding: 1.5rem 0;">
+      <div style="display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.8rem;">
+        <h2 style="font-size: 1.3rem; font-style: italic;">Complete Course Index</h2>
+        <span style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--ink-faint); text-transform:uppercase; letter-spacing:0.12em;">6 Modules · Click to Enter</span>
+      </div>
+
+      <!-- .toc-grid — CSS Grid auto-fill, each card fades in via script.js -->
+      <div class="toc-grid">
+
+        <a href="topic1-foundations.html" class="toc-card">
+          <div class="card-num">01</div>
+          <div class="card-title">Foundations of AI</div>
+          <div class="card-desc">Definition · History · Weak vs Strong AI · Benefits · Risks · Use Cases</div>
+        </a>
+
+        <a href="topic2-machine-learning.html" class="toc-card">
+          <div class="card-num">02</div>
+          <div class="card-title">Machine Learning Paradigms</div>
+          <div class="card-desc">Supervised · Unsupervised · Deep Learning · Generative AI · Transformers</div>
+        </a>
+
+        <a href="topic3-ml-workflow.html" class="toc-card">
+          <div class="card-num">03</div>
+          <div class="card-title">The ML Workflow</div>
+          <div class="card-desc">10-Stage Pipeline · Data Prep · EDA · Feature Engineering · Model Training</div>
+        </a>
+
+        <a href="topic4-algorithms.html" class="toc-card">
+          <div class="card-num">04</div>
+          <div class="card-title">Classical ML Algorithms</div>
+          <div class="card-desc">KNN · Regression vs Classification · Distance Metrics · Linear Models</div>
+        </a>
+
+        <a href="topic5-evaluation.html" class="toc-card">
+          <div class="card-num">05</div>
+          <div class="card-title">Evaluation &amp; Tuning</div>
+          <div class="card-desc">Accuracy · Precision · Recall · F1 · ROC-AUC · Hyperparameter Tuning</div>
+        </a>
+
+        <a href="topic6-ethics.html" class="toc-card">
+          <div class="card-num">06</div>
+          <div class="card-title">AI Ethics &amp; Governance</div>
+          <div class="card-desc">Fairness · Explainability · Bias · Privacy · GDPR · Responsible AI Principles</div>
+        </a>
+
+      </div>
+    </section>
+
+    <hr />
+
+    <!-- ── BOTTOM ROW: Two extra articles ── -->
+    <div class="newspaper-grid" style="padding-top: 1rem;">
+
+      <div class="news-col col-span-2">
+        <article class="article-card">
+          <p class="kicker">Topic V · Model Performance</p>
+          <h2>How Do You Know If Your Model Is Actually Good?</h2>
+          <p>
+            Accuracy alone is a liar. A model that says "No fraud" for every transaction in a dataset
+            where 99% of transactions are genuine will achieve 99% accuracy — and miss every
+            single fraudulent case. This module teaches you why you need Precision, Recall, F1-score,
+            and ROC-AUC to truly measure a model's worth. It also covers hyperparameter tuning:
+            how learning rate, batch size, epochs, and regularization strength can make or break
+            your model's performance.
+          </p>
+          <a href="topic5-evaluation.html" class="read-more">Read Full Article →</a>
+        </article>
+      </div>
+
+      <div class="news-col">
+        <article class="article-card">
+          <p class="kicker">Topic VI · Ethics</p>
+          <h2>The Machine Has No Conscience — So We Must</h2>
+          <p>
+            Biased training data, opaque decision-making, privacy violations, and accountability
+            gaps — the ethical challenges of AI are as significant as its technical ones. This module
+            covers the principles of responsible AI: fairness, explainability, transparency, and
+            compliance with frameworks like GDPR.
+          </p>
+          <a href="topic6-ethics.html" class="read-more">Read Full Article →</a>
+        </article>
+      </div>
+
+    </div>
+
+    <hr class="thick" />
+    <p style="font-family:var(--font-mono); font-size:0.72rem; color:var(--ink-faint); text-align:center; padding: 0.5rem 0;">
+      All content compiled from GET 307 course materials, SIPET, Federal University of Technology, Minna (FUTMINNA).
+      Study materials by Dr. I.M. Simeon, Dr. UG Okoro, Dr. I.S. Mohammed &amp; Faculty.
+    </p>
+
+  </div><!-- /container -->
+  </main>
+
+  <!-- ═══════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════ -->
+  <footer class="site-footer">
+    <p>The AI Intelligencer · GET 307 Study Site · FUTMINNA SIPET</p>
+    <hr class="footer-rule" />
+    <p>Built for academic purposes · 2025/26 Session</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
