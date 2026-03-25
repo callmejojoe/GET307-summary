@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic II: Machine Learning — GET 307</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-masthead">
+    <div class="masthead-top-rule container">
+      <span>GET 307 · FUTMINNA · SIPET</span>
+      <span>The AI Intelligencer</span>
+      <span>Topic II of VI</span>
+    </div>
+    <h1 class="masthead-title" style="font-size: clamp(2.5rem, 7vw, 5rem);">The AI Intelligencer</h1>
+    <p class="masthead-subtitle">Your Complete Study Companion for GET 307</p>
+  </header>
+
+  <nav class="site-nav" aria-label="Main Navigation">
+    <ul>
+      <li><a href="index.html">Front Page</a></li>
+      <li><a href="topic1-foundations.html">I. AI Foundations</a></li>
+      <li><a href="topic2-machine-learning.html">II. Machine Learning</a></li>
+      <li><a href="topic3-ml-workflow.html">III. ML Workflow</a></li>
+      <li><a href="topic4-algorithms.html">IV. Algorithms</a></li>
+      <li><a href="topic5-evaluation.html">V. Evaluation</a></li>
+      <li><a href="topic6-ethics.html">VI. Ethics &amp; Governance</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <a href="index.html" class="back-link">← Front Page</a>
+      <span class="section-label">Topic II · GET 307 · Weeks 1–4</span>
+      <hr />
+      <h1>Machine Learning: Teaching Machines to Learn</h1>
+      <div class="byline">Compiled from GET 307 lecture notes · Dr. I.M. Simeon, ABE Dept., FUTMINNA</div>
+    </div>
+  </div>
+
+  <main>
+  <div class="container">
+    <hr class="thick" />
+
+    <div class="page-grid">
+
+      <article class="page-main">
+
+        <!-- ── Section 1: What is ML? ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 1</span>
+          <h2>What Is Machine Learning?</h2>
+        </div>
+
+        <p class="drop-cap">
+          Machine learning (ML) sits directly underneath AI in the technology hierarchy. It involves
+          creating models by training an algorithm to make predictions or decisions based on data.
+          The revolutionary idea: instead of programmers writing every rule, the machine discovers
+          the rules itself from examples.
+        </p>
+
+        <p>
+          ML encompasses a broad range of techniques that enable computers to learn from and make
+          inferences based on data <em>without being explicitly programmed for specific tasks.</em>
+          Popular ML algorithms include linear regression, logistic regression, decision trees,
+          random forest, support vector machines (SVMs), k-nearest neighbor (KNN), and clustering.
+        </p>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: Learning to Recognize Mangoes</span>
+          <p>
+            Traditional programming: you write rules — "if oval-shaped AND yellow-orange AND heavy
+            for its size, THEN it's a mango." But what if the mango is green? Or small? Your rules
+            break. Machine learning instead shows the algorithm 10,000 photos of mangoes and
+            non-mangoes, and it learns to extract the patterns — colour gradients, shape distributions,
+            texture — on its own. New fruit variety? It adapts.
+          </p>
+        </div>
+
+        <!-- ── Section 2: Types of ML ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 2</span>
+          <h2>The Four Paradigms of Machine Learning</h2>
+        </div>
+
+        <p>
+          ML algorithms are typically categorised by the type of feedback the learning system
+          receives during training. There are four major paradigms:
+        </p>
+
+        <!-- Supervised Learning -->
+        <div class="callout-box definition">
+          <span class="callout-label">Paradigm 1: Supervised Learning</span>
+          <p>
+            The simplest and most common form of ML. The algorithm trains on a <strong>labelled dataset</strong>
+            — each training example is paired with an output label by a human. The goal is for the
+            model to learn the mapping between inputs and outputs, so it can predict the labels of
+            new, unseen data.
+          </p>
+          <p style="margin:0; margin-top:0.5rem;"><strong>Examples:</strong> Email spam detection (spam/not spam), house price prediction, disease diagnosis (positive/negative).</p>
+        </div>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: The Student with an Answer Key</span>
+          <p>
+            Supervised learning is like a student studying with a practice exam that includes an
+            answer key. For every question, they can check whether they got it right, and they
+            adjust their understanding until their answers consistently match the key. The "labelled
+            data" is the answer key. At exam time (test data), no key — they're on their own.
+          </p>
+        </div>
+
+        <!-- Unsupervised Learning -->
+        <div class="callout-box definition">
+          <span class="callout-label">Paradigm 2: Unsupervised Learning</span>
+          <p>
+            The algorithm is given data <strong>without any labels</strong> and must discover
+            structure, patterns, or groupings on its own. The model figures out what categories or
+            clusters exist in the data without being told what to look for.
+          </p>
+          <p style="margin:0; margin-top:0.5rem;"><strong>Examples:</strong> Customer segmentation, topic modelling in documents, anomaly detection, dimensionality reduction.</p>
+        </div>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: Sorting Laundry Without Instructions</span>
+          <p>
+            Unsupervised learning is like sorting a huge pile of laundry without anyone telling you
+            the categories. You naturally group by colour, fabric type, or size — discovering the
+            structure yourself. No one labelled the clothes; you found the patterns. A clustering
+            algorithm does exactly this with data points.
+          </p>
+        </div>
+
+        <!-- Semi-supervised -->
+        <div class="callout-box definition">
+          <span class="callout-label">Paradigm 3: Semi-Supervised Learning</span>
+          <p>
+            Combines supervised and unsupervised learning by using <strong>both labelled and unlabelled data</strong>
+            to train models. This is particularly useful when labelling data is expensive or
+            time-consuming — you label a small portion and let the model use unlabelled examples
+            to improve further.
+          </p>
+          <p style="margin:0; margin-top:0.5rem;"><strong>Example:</strong> Medical image classification where only some scans have expert diagnoses.</p>
+        </div>
+
+        <!-- Reinforcement Learning -->
+        <div class="callout-box definition">
+          <span class="callout-label">Paradigm 4: Reinforcement Learning (RL)</span>
+          <p>
+            An agent learns by <strong>trial-and-error</strong> and a reward function rather than
+            from labelled data. The agent takes actions in an environment and receives positive or
+            negative feedback (rewards/penalties), gradually learning to take actions that maximise
+            cumulative reward.
+          </p>
+          <p style="margin:0; margin-top:0.5rem;"><strong>Examples:</strong> Game-playing AI (AlphaGo, chess engines), robot locomotion, autonomous driving, recommendation systems.</p>
+        </div>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: Training a Puppy</span>
+          <p>
+            Reinforcement learning works exactly like training a dog. You don't write a manual
+            explaining "how to sit." You reward the dog with a treat when it sits and withhold the
+            treat (or say "no") when it doesn't. Over many trials, the dog learns to sit because
+            sitting reliably produces treats. The AI agent is the dog; the reward signal is the treat.
+          </p>
+        </div>
+
+        <!-- Also: Self-supervised, Transfer Learning -->
+        <div class="callout-box definition">
+          <span class="callout-label">Also: Self-Supervised &amp; Transfer Learning</span>
+          <p>
+            <strong>Self-supervised learning</strong> generates implicit labels from unstructured data,
+            rather than relying on human-labelled datasets. Large language models like GPT are trained
+            this way — the next word in a sentence is the "label."
+          </p>
+          <p style="margin:0; margin-top:0.5rem;">
+            <strong>Transfer learning</strong> reuses knowledge gained from training on one task to
+            improve performance on a different but related task. Instead of training from scratch,
+            you start with a pre-trained model. This is why GPT can be fine-tuned for medical diagnosis
+            without retraining from zero.
+          </p>
+        </div>
+
+        <!-- ── Section 3: Neural Networks ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 3</span>
+          <h2>Neural Networks: The Brain-Inspired Architecture</h2>
+        </div>
+
+        <p>
+          One of the most popular ML model types is the <strong>neural network</strong> (or artificial
+          neural network, ANN). Neural networks are modelled after the human brain's structure —
+          specifically the web of billions of neurons connected by synapses.
+        </p>
+
+        <p>
+          An ANN consists of interconnected <strong>layers of nodes</strong> (analogous to neurons)
+          that work together to process complex data. Each connection has a <em>weight</em>: a number
+          representing how strongly one node influences another. Training adjusts these weights until
+          the network produces correct outputs.
+        </p>
+
+        <table>
+          <thead>
+            <tr><th>Layer</th><th>Role</th><th>Human Brain Analogy</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Input Layer</td><td>Receives raw data (pixels, words, sensor readings)</td><td>Your sensory organs (eyes, ears)</td></tr>
+            <tr><td>Hidden Layer(s)</td><td>Extracts and transforms features progressively</td><td>Brain's processing cortex regions</td></tr>
+            <tr><td>Output Layer</td><td>Produces final prediction or classification</td><td>Your decision or action</td></tr>
+          </tbody>
+        </table>
+
+        <!-- ── Section 4: Deep Learning ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 4</span>
+          <h2>Deep Learning: Going Deeper</h2>
+        </div>
+
+        <p>
+          <strong>Deep learning</strong> is a subset of machine learning that uses <em>multilayer neural networks</em>
+          (called deep neural networks, DNNs) — networks with at least three hidden layers, and often
+          hundreds of them.
+        </p>
+
+        <p>
+          While a classic ML neural network might have one or two hidden layers, deep neural networks
+          can have hundreds. This depth is what makes them powerful: each layer learns progressively
+          more abstract features. In image recognition:
+        </p>
+
+        <ul style="list-style:none; padding:0; margin: 0.5rem 0 1rem; border-left: 3px solid var(--rule-thin); padding-left: 1.2rem;">
+          <li style="padding: 0.3rem 0; border-bottom: 1px dotted var(--paper-dark);">Layer 1 → Detects edges and colour gradients</li>
+          <li style="padding: 0.3rem 0; border-bottom: 1px dotted var(--paper-dark);">Layer 2 → Detects shapes made of edges</li>
+          <li style="padding: 0.3rem 0; border-bottom: 1px dotted var(--paper-dark);">Layer 3 → Detects object parts (eyes, wheels, leaves)</li>
+          <li style="padding: 0.3rem 0;">Final Layers → Identifies the whole object (a face, a car, a plant)</li>
+        </ul>
+
+        <p>
+          This multiple-layer structure enables <strong>unsupervised feature extraction</strong>:
+          deep networks can automatically extract meaningful patterns from raw, unlabelled data
+          without humans having to tell them what features to look for.
+        </p>
+
+        <p>
+          Because deep learning doesn't require manual feature engineering or constant human
+          intervention, it scales enormously. <em>Some form of deep learning powers most of the AI
+          applications in our lives today.</em>
+        </p>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: The Junior vs Senior Detective</span>
+          <p>
+            A classic ML model with one hidden layer is like a junior detective given a checklist:
+            "Check for blood type. Check for fingerprints. Check for motive." They follow the list a
+            human gave them. A deep learning model with hundreds of layers is like a senior detective
+            who has solved 10,000 cases. They intuitively notice things the checklist never mentioned
+            — the nervous twitch, the slightly-too-clean crime scene — because their deep experience
+            taught them what to look for. No one gave them that checklist; they built it themselves.
+          </p>
+        </div>
+
+        <!-- ── Section 5: Generative AI ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 5</span>
+          <h2>Generative AI: Machines That Create</h2>
+        </div>
+
+        <p>
+          <strong>Generative AI</strong> (gen AI) refers to deep learning models that can create
+          complex original content — long-form text, high-quality images, realistic video and audio
+          — in response to a user's prompt.
+        </p>
+
+        <p>
+          At a high level, generative models encode a simplified representation of their training
+          data, then draw from that representation to create new work that's similar — but not
+          identical — to the original. Think of them as learning the statistical "grammar" of
+          existing content, then using it to write new sentences.
+        </p>
+
+        <p>Three major deep learning architectures underpin modern generative AI:</p>
+
+        <div class="callout-box definition">
+          <span class="callout-label">Architecture 1: Variational Autoencoders (VAEs) — Introduced 2013</span>
+          <p>VAEs learn a compressed "latent space" representation of training data and can generate multiple variations of content in response to a prompt or instruction.</p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">Architecture 2: Diffusion Models — First Seen 2014</span>
+          <p>Diffusion models add "noise" to images progressively until they're unrecognisable, then learn to reverse this process — generating original images by "denoising" from random noise. This powers image generators like DALL-E and Stable Diffusion.</p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">Architecture 3: Transformers — The Dominant Architecture</span>
+          <p>
+            Trained on sequenced data to generate extended sequences of content (words in sentences,
+            frames in video, commands in code). Transformers are at the core of today's most powerful
+            generative AI tools: <strong>ChatGPT / GPT-4, Google Gemini, Anthropic Claude, BERT, Midjourney, GitHub Copilot.</strong>
+          </p>
+        </div>
+
+        <!-- ── Section 6: How Gen AI Works ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 6</span>
+          <h2>How Generative AI Works: Three Phases</h2>
+        </div>
+
+        <ol class="workflow-steps">
+          <li>
+            <div class="step-body">
+              <div class="step-title">Phase 1: Training (Creating the Foundation Model)</div>
+              <p class="step-desc">A deep learning algorithm is trained on enormous volumes of raw, unstructured, unlabelled data — terabytes to petabytes from the internet. This produces a <strong>foundation model</strong>: a neural network of billions of parameters encoding representations of entities, patterns, and relationships. This phase is compute-intensive, time-consuming, and expensive — often requiring thousands of GPUs and costing millions of USD.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <div class="step-title">Phase 2: Tuning (Adapting to a Specific Task)</div>
+              <p class="step-desc">The foundation model is refined for a specific application using: <strong>Fine-tuning</strong> (feeding the model labelled, domain-specific data) or <strong>RLHF — Reinforcement Learning from Human Feedback</strong> (humans evaluate model outputs and the model adjusts to improve based on their feedback — how ChatGPT learned to be helpful and safe).</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <div class="step-title">Phase 3: Generation, Evaluation &amp; More Tuning</div>
+              <p class="step-desc">Developers and users regularly assess outputs and retune the model — as often as weekly. The foundation model itself is updated less frequently (every year or 18 months). <strong>Retrieval Augmented Generation (RAG)</strong> can also extend the model with external knowledge sources without full retraining.</p>
+            </div>
+          </li>
+        </ol>
+
+        <!-- ── Section 7: AI Agents ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 7</span>
+          <h2>AI Agents: Beyond Chatbots</h2>
+        </div>
+
+        <p>
+          An <strong>AI agent</strong> is an autonomous AI program that can perform tasks and
+          accomplish goals without human intervention, by designing its own workflow and using
+          available tools (other applications or services).
+        </p>
+
+        <p>
+          <strong>Agentic AI</strong> is a system of multiple AI agents whose efforts are
+          coordinated to accomplish a more complex task than any single agent could achieve alone.
+        </p>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: The Chatbot vs The Personal Assistant</span>
+          <p>
+            A chatbot (gen AI) can tell you: "The best time to climb Mount Everest is in May, before
+            the monsoon season." An AI <em>agent</em> can do the same — and then autonomously book
+            your flight, reserve your hotel in Kathmandu, schedule your altitude acclimatization
+            hikes, and add everything to your calendar. Same intelligence; vastly more capability
+            because it can take actions in the world, not just generate text.
+          </p>
+        </div>
+
+      </article><!-- /page-main -->
+
+      <!-- ── SIDEBAR ── -->
+      <aside class="page-sidebar">
+
+        <div class="sidebar-box">
+          <h4>ML Paradigms Summary</h4>
+          <ul>
+            <li><strong>Supervised:</strong> Labelled data → predict labels</li>
+            <li><strong>Unsupervised:</strong> No labels → find patterns</li>
+            <li><strong>Semi-supervised:</strong> Both labelled &amp; unlabelled</li>
+            <li><strong>Reinforcement:</strong> Trial, error, and rewards</li>
+            <li><strong>Self-supervised:</strong> Labels from data itself</li>
+            <li><strong>Transfer:</strong> Reuse knowledge across tasks</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Key Terms</h4>
+          <ul>
+            <li><strong>ANN:</strong> Artificial Neural Network</li>
+            <li><strong>DNN:</strong> Deep Neural Network (3+ hidden layers)</li>
+            <li><strong>LLM:</strong> Large Language Model (GPT, Gemini)</li>
+            <li><strong>RAG:</strong> Retrieval Augmented Generation</li>
+            <li><strong>RLHF:</strong> RL from Human Feedback</li>
+            <li><strong>Foundation Model:</strong> Massive pre-trained base model</li>
+            <li><strong>Fine-tuning:</strong> Adapting a base model for a task</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Gen AI Architectures</h4>
+          <ul>
+            <li>VAEs (2013) — variations from latent space</li>
+            <li>Diffusion Models (2014) — denoise to generate</li>
+            <li>Transformers — sequences; powers ChatGPT</li>
+            <li>GPT-4, Gemini, Claude = Transformer LLMs</li>
+            <li>Midjourney = Diffusion + Transformer</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="topic1-foundations.html">← Topic I: AI Foundations</a></li>
+            <li><a href="topic3-ml-workflow.html">Topic III: ML Workflow →</a></li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </div><!-- /page-grid -->
+
+    <!-- ═══════════════════════════════════════════════
+         QUIZ SECTION — Topic II
+    ═══════════════════════════════════════════════ -->
+    <section class="quiz-section" aria-label="Topic Quiz">
+      <div class="quiz-header">
+        <h2>📰 Quiz — Topic II: Machine Learning</h2>
+        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--paper-dark);">5 Questions · Select &amp; Submit</span>
+      </div>
+
+      <div class="quiz-body">
+
+        <!-- Q1 -->
+        <div class="quiz-question" data-answer="C">
+          <p class="q-num">Question 01</p>
+          <p class="q-text">What is the defining characteristic of supervised machine learning?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) The model learns without any training data by reasoning from first principles</button></li>
+            <li><button data-option="B">B) The model is trained on unlabelled data and discovers patterns autonomously</button></li>
+            <li><button data-option="C">C) The model trains on labelled datasets where each example is paired with a correct output label</button></li>
+            <li><button data-option="D">D) The model improves through trial-and-error using reward and penalty signals</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: C.</strong> Supervised learning requires labelled data — humans pair each training example with an output label. The model learns the input-to-output mapping so it can predict labels for unseen data. Option D describes Reinforcement Learning; B describes Unsupervised Learning.
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question" data-answer="D">
+          <p class="q-num">Question 02</p>
+          <p class="q-text">How does a deep neural network (DNN) differ from a standard neural network in classical machine learning?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) DNNs use labelled data while classical NNs require unlabelled data</button></li>
+            <li><button data-option="B">B) DNNs are faster to train than classical neural networks</button></li>
+            <li><button data-option="C">C) DNNs do not require training data; they use rule-based programming instead</button></li>
+            <li><button data-option="D">D) DNNs have at least three hidden layers (often hundreds), while classical NNs typically have only one or two</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: D.</strong> The "deep" in deep learning refers to the number of hidden layers. Classical NNs have 1–2 hidden layers. DNNs have at least 3, often hundreds. This depth enables automatic feature extraction from raw, unlabelled data at scale.
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question" data-answer="A">
+          <p class="q-num">Question 03</p>
+          <p class="q-text">Which generative AI architecture powers most of today's headline-making large language models (LLMs) such as ChatGPT, Claude, and Gemini?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Transformers, trained on sequenced data to generate extended content sequences</button></li>
+            <li><button data-option="B">B) Variational Autoencoders (VAEs), which learn latent space representations</button></li>
+            <li><button data-option="C">C) Diffusion models, which add and remove noise to generate outputs</button></li>
+            <li><button data-option="D">D) Recurrent Neural Networks (RNNs) with long short-term memory cells</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: A.</strong> Transformers are the dominant architecture for LLMs. They process entire sequences in parallel (unlike RNNs) and their attention mechanism lets them relate distant words in context. VAEs and Diffusion models are primarily used for image generation.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="quiz-question" data-answer="B">
+          <p class="q-num">Question 04</p>
+          <p class="q-text">Reinforcement learning (RL) is best described by which of the following?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Training on a large, fully labelled dataset to predict correct outputs</button></li>
+            <li><button data-option="B">B) An agent learning to take actions that maximise cumulative reward through trial, error, and feedback signals</button></li>
+            <li><button data-option="C">C) Extracting hidden structure from unlabelled data through clustering</button></li>
+            <li><button data-option="D">D) Re-using a pre-trained model's knowledge to solve a new related task</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: B.</strong> RL involves an agent, an environment, actions, and a reward function. The agent learns by exploring actions and receiving feedback — positive (reward) for good actions, negative (penalty) for bad ones. AlphaGo was trained with RL. Option D describes Transfer Learning.
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="quiz-question" data-answer="C">
+          <p class="q-num">Question 05</p>
+          <p class="q-text">What is Retrieval Augmented Generation (RAG) used for in the context of generative AI?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) A method of training a foundation model from scratch using internet-scale data</button></li>
+            <li><button data-option="B">B) A technique for having human evaluators provide feedback to improve model outputs (RLHF)</button></li>
+            <li><button data-option="C">C) Extending a foundation model with relevant external knowledge sources to improve accuracy without full retraining</button></li>
+            <li><button data-option="D">D) The process of compressing a large model into a smaller, faster model for deployment</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: C.</strong> RAG improves a gen AI app's accuracy by allowing it to retrieve relevant information from external sources (documents, databases) at inference time, supplementing what the model learned during training. This is cheaper than retraining and keeps knowledge current.
+          </div>
+        </div>
+
+        <button class="quiz-submit-btn">Submit Answers</button>
+
+      </div><!-- /quiz-body -->
+
+      <div class="quiz-score-panel">
+        <span class="score-num">0 / 5</span>
+        <p class="score-msg"></p>
+      </div>
+
+    </section>
+
+    <hr />
+    <div style="display:flex; justify-content:space-between; padding: 1rem 0; font-family:var(--font-mono); font-size:0.75rem;">
+      <a href="topic1-foundations.html" class="back-link">← Topic I: AI Foundations</a>
+      <a href="topic3-ml-workflow.html" class="back-link">Topic III: ML Workflow →</a>
+    </div>
+
+  </div><!-- /container -->
+  </main>
+
+  <footer class="site-footer">
+    <p>The AI Intelligencer · GET 307 Study Site · FUTMINNA SIPET</p>
+    <hr class="footer-rule" />
+    <p>Topic II of VI · Machine Learning Paradigms</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

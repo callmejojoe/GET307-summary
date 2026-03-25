@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic VI: AI Ethics &amp; Governance — GET 307</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-masthead">
+    <div class="masthead-top-rule container">
+      <span>GET 307 · FUTMINNA · SIPET</span>
+      <span>The AI Intelligencer</span>
+      <span>Topic VI of VI</span>
+    </div>
+    <h1 class="masthead-title" style="font-size: clamp(2.5rem, 7vw, 5rem);">The AI Intelligencer</h1>
+    <p class="masthead-subtitle">Your Complete Study Companion for GET 307</p>
+  </header>
+
+  <nav class="site-nav" aria-label="Main Navigation">
+    <ul>
+      <li><a href="index.html">Front Page</a></li>
+      <li><a href="topic1-foundations.html">I. AI Foundations</a></li>
+      <li><a href="topic2-machine-learning.html">II. Machine Learning</a></li>
+      <li><a href="topic3-ml-workflow.html">III. ML Workflow</a></li>
+      <li><a href="topic4-algorithms.html">IV. Algorithms</a></li>
+      <li><a href="topic5-evaluation.html">V. Evaluation</a></li>
+      <li><a href="topic6-ethics.html">VI. Ethics &amp; Governance</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <a href="index.html" class="back-link">← Front Page</a>
+      <span class="section-label">Topic VI · GET 307 · Responsible AI</span>
+      <hr />
+      <h1>AI Ethics &amp; Governance: The Machine Has No Conscience</h1>
+      <div class="byline">Compiled from GET 307 Teaching Dossier · SIPET, FUTMINNA · 2025/26 Session</div>
+    </div>
+  </div>
+
+  <main>
+  <div class="container">
+    <hr class="thick" />
+
+    <div class="page-grid">
+
+      <article class="page-main">
+
+        <!-- ── Section 1: What is AI Ethics? ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 1</span>
+          <h2>What Is AI Ethics?</h2>
+        </div>
+
+        <p class="drop-cap">
+          AI ethics is a multidisciplinary field that studies how to optimize AI's beneficial
+          impact while reducing risks and adverse outcomes. It encompasses philosophy, law,
+          sociology, and engineering — and it is not optional. As AI systems increasingly make
+          consequential decisions about people's lives (loans, healthcare, hiring, criminal justice),
+          the ethical dimensions of these systems matter as much as their technical performance.
+        </p>
+
+        <p>
+          AI ethics principles are applied through a system of <strong>AI governance</strong>
+          — oversight mechanisms and guardrails that help ensure AI tools and systems remain safe
+          and ethical in practice. Effective AI governance requires the involvement of a wide
+          range of stakeholders: developers, users, policymakers, and ethicists.
+        </p>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: The All-Knowing Judge Who Never Went to Law School</span>
+          <p>
+            Imagine an AI system used to determine bail amounts in criminal cases. It's fast,
+            consistent, and has no bad days. But if it was trained on 20 years of historical
+            decisions made by judges who were themselves biased against certain ethnic groups,
+            the AI will encode and amplify those biases at machine speed and scale — with the
+            added problem that no one can easily explain why it made a particular decision.
+            Speed and efficiency are meaningless if the underlying judgments are unjust.
+          </p>
+        </div>
+
+        <!-- ── Section 2: Core AI Risks ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 2</span>
+          <h2>AI Challenges and Risks: A Classification</h2>
+        </div>
+
+        <p>Organizations deploying AI face risks across four major categories:</p>
+
+        <div class="callout-box warning">
+          <span class="callout-label">⚠ 1. Data Risks</span>
+          <p>
+            AI systems rely on data that may be vulnerable to:<br>
+            <strong>Data poisoning:</strong> Attackers deliberately corrupting training data to cause misclassification.<br>
+            <strong>Data tampering:</strong> Modification of data inputs to manipulate outputs.<br>
+            <strong>Data bias:</strong> Training data that doesn't representatively sample all relevant groups.<br>
+            <strong>Data breaches:</strong> Unauthorized access to sensitive training datasets.
+          </p>
+        </div>
+
+        <div class="callout-box warning">
+          <span class="callout-label">⚠ 2. Model Risks</span>
+          <p>
+            <strong>Model theft:</strong> Reverse-engineering a model's architecture, weights, or behavior through adversarial queries.<br>
+            <strong>Model tampering:</strong> Attackers manipulate model parameters post-deployment to alter behavior.<br>
+            <strong>Adversarial attacks:</strong> Carefully crafted inputs (imperceptible to humans) that fool the model into wrong predictions.
+          </p>
+        </div>
+
+        <div class="callout-box warning">
+          <span class="callout-label">⚠ 3. Operational Risks</span>
+          <p>
+            <strong>Model drift:</strong> Real-world data patterns shift over time; a model trained on 2020 data may perform poorly in 2025 without retraining.<br>
+            <strong>Algorithmic bias:</strong> Systematic unfairness that emerges from biased training data or flawed model design.<br>
+            <strong>Governance failures:</strong> Unclear accountability for model decisions and outcomes.
+          </p>
+        </div>
+
+        <div class="callout-box warning">
+          <span class="callout-label">⚠ 4. Ethics &amp; Legal Risks</span>
+          <p>
+            <strong>Privacy violations:</strong> Processing personal data without proper consent or in violation of data protection laws.<br>
+            <strong>Discriminatory outcomes:</strong> AI systems that systematically disadvantage protected groups.<br>
+            <strong>Regulatory non-compliance:</strong> Failure to meet standards set by frameworks like GDPR, CCPA, and emerging AI-specific regulations.
+          </p>
+        </div>
+
+        <!-- ── Section 3: Principles of Responsible AI ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 3</span>
+          <h2>The Six Pillars of Responsible AI</h2>
+        </div>
+
+        <p>
+          The GET 307 course identifies six core values that form the foundation of ethical and
+          responsible AI development and deployment:
+        </p>
+
+        <!-- Explainability -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Pillar 1: Explainability &amp; Interpretability</span>
+          <p>
+            As AI becomes more advanced, humans struggle to understand how algorithms reach their
+            conclusions — the "black box" problem. <strong>Explainable AI (XAI)</strong> is a set
+            of processes and methods that enable human users to interpret, comprehend, and trust
+            the results created by algorithms.
+          </p>
+          <p style="margin:0; margin-top:0.5rem;">
+            <em>Engineering relevance:</em> When an AI system recommends shutting down a critical
+            machine, an engineer must be able to understand <em>why</em> — to verify the
+            recommendation, override it when appropriate, and maintain accountability.
+          </p>
+        </div>
+
+        <!-- Fairness -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Pillar 2: Fairness &amp; Inclusion</span>
+          <p>
+            Machine learning is inherently a form of statistical discrimination — it creates groups
+            and treats them differently based on learned patterns. Discrimination becomes ethically
+            objectionable when it <em>systematically</em> advantages privileged groups and
+            disadvantages protected groups, causing real harm.
+          </p>
+          <p style="margin:0; margin-top:0.5rem;">
+            Practitioners can promote fairness by: auditing training data for bias, testing model
+            outputs across demographic groups, building diverse development teams, and using
+            algorithmic fairness constraints during training.
+          </p>
+        </div>
+
+        <!-- Robustness -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Pillar 3: Robustness &amp; Security</span>
+          <p>
+            A robust AI system <strong>effectively handles exceptional conditions</strong> —
+            abnormal inputs, edge cases, adversarial attacks, and distribution shifts — without
+            causing unintentional harm or making dangerously wrong predictions.
+          </p>
+          <p style="margin:0; margin-top:0.5rem;">
+            Robustness testing includes: adversarial example testing, stress testing with
+            out-of-distribution inputs, monitoring for model drift, and implementing fallback
+            mechanisms when the model's confidence is low.
+          </p>
+        </div>
+
+        <!-- Accountability -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Pillar 4: Accountability &amp; Transparency</span>
+          <p>
+            Organizations must implement clear responsibilities and governance structures for AI
+            development, deployment, and outcomes. <strong>Who is accountable</strong> when an AI
+            system causes harm? The developer? The organization that deployed it? The user who
+            relied on its output?
+          </p>
+          <p style="margin:0; margin-top:0.5rem;">
+            Transparency means users can see how an AI service works, evaluate its functionality,
+            and understand its strengths and limitations — including when it is likely to be wrong.
+          </p>
+        </div>
+
+        <!-- Privacy -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Pillar 5: Privacy &amp; Regulatory Compliance</span>
+          <p>
+            Many regulatory frameworks mandate that organizations follow strict privacy principles
+            when processing personal information used in AI:
+          </p>
+          <ul style="margin:0.5rem 0 0; padding-left:1.2rem; font-size:0.88rem;">
+            <li><strong>GDPR</strong> (General Data Protection Regulation, EU): Right to explanation of automated decisions, right to be forgotten, data minimization</li>
+            <li><strong>CCPA</strong> (California Consumer Privacy Act): Right to know what data is collected; right to delete</li>
+            <li><strong>Nigeria's NDPR</strong> (Nigeria Data Protection Regulation): Governs data processing of Nigerian citizens</li>
+          </ul>
+        </div>
+
+        <!-- Beneficence -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Pillar 6: Human-Centred Design &amp; Societal Benefit</span>
+          <p>
+            The ultimate goal of AI systems should be to benefit humanity — not merely to optimize
+            a metric. This means considering the full societal impacts of AI deployment: job
+            displacement, environmental costs of large-scale model training, concentration of AI
+            power in few organizations, and the accessibility of AI benefits across different
+            socioeconomic groups.
+          </p>
+        </div>
+
+        <!-- ── Section 4: Bias Deep Dive ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 4</span>
+          <h2>Algorithmic Bias: Types, Causes, and Mitigations</h2>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>Bias Type</th><th>Where It Occurs</th><th>Example</th><th>Mitigation</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Historical Bias</strong></td>
+              <td>Training data reflects past human prejudices</td>
+              <td>Hiring AI trained on data where 90% of engineers were male predicts males more suitable</td>
+              <td>Audit data representation; use debiasing techniques; diverse training data</td>
+            </tr>
+            <tr>
+              <td><strong>Sampling Bias</strong></td>
+              <td>Training data not representative of deployment population</td>
+              <td>Medical AI trained only on data from one ethnicity performs poorly on others</td>
+              <td>Stratified sampling; collect diverse, representative datasets</td>
+            </tr>
+            <tr>
+              <td><strong>Measurement Bias</strong></td>
+              <td>Features used as proxies for sensitive attributes</td>
+              <td>Using zip code (correlates with race) as a feature in loan decisions</td>
+              <td>Audit feature correlations with protected attributes; use fairness-aware feature selection</td>
+            </tr>
+            <tr>
+              <td><strong>Feedback Loop Bias</strong></td>
+              <td>Model predictions influence future training data</td>
+              <td>Predictive policing model predicts high crime in area → more policing there → more arrests → more data supporting the prediction</td>
+              <td>Monitor downstream effects of AI decisions; break feedback loops with human review</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: The Map that Makes the Territory</span>
+          <p>
+            Normally, the map represents the territory. But feedback loop bias is like a map that
+            <em>changes the territory</em> to match itself. If a crime prediction map marks a
+            neighborhood as high-risk, police concentrate there, find more crime (because they're
+            looking), and this validates the map's prediction — creating a self-fulfilling prophecy.
+            The map isn't accurate; it's actively shaping what it claims to describe.
+          </p>
+        </div>
+
+        <!-- ── Section 5: AI Governance Framework ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 5</span>
+          <h2>Implementing AI Governance: A Practitioner's Framework</h2>
+        </div>
+
+        <ol class="workflow-steps">
+          <li>
+            <div class="step-body">
+              <div class="step-title">Pre-Deployment: Ethics Impact Assessment</div>
+              <p class="step-desc">Before training any model, conduct a structured assessment of potential harms: Who could be adversely affected? What data is being used? What regulatory requirements apply? Document risks and mitigation strategies.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <div class="step-title">During Development: Bias Auditing &amp; Fairness Testing</div>
+              <p class="step-desc">Regularly audit training data for bias. Test model performance across all demographic subgroups — not just overall accuracy. Apply algorithmic fairness constraints if needed.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <div class="step-title">Deployment: Transparency &amp; Human Oversight</div>
+              <p class="step-desc">Clearly communicate to users when AI is making decisions affecting them. Maintain human override mechanisms for high-stakes decisions. Document model limitations prominently.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <div class="step-title">Post-Deployment: Monitoring &amp; Accountability</div>
+              <p class="step-desc">Continuously monitor for model drift, bias emergence, and unexpected behaviors. Establish clear accountability chains: who is responsible when the model causes harm? Conduct regular audits.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <div class="step-title">Incident Response: When Things Go Wrong</div>
+              <p class="step-desc">Have a documented incident response plan for when AI systems cause harm. This includes: model rollback procedures, stakeholder notification, root cause analysis, and corrective action documentation.</p>
+            </div>
+          </li>
+        </ol>
+
+        <div class="pull-quote">
+          <p>"Organizations should implement clear responsibilities and governance structures for the development, deployment, and outcomes of AI systems."</p>
+          <cite>— GET 307 Course Materials, FUTMINNA SIPET</cite>
+        </div>
+
+        <!-- ── Section 6: Engineering Context ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 6</span>
+          <h2>AI Ethics in Engineering Practice</h2>
+        </div>
+
+        <p>
+          As engineering students, you will build systems that affect real people. The GET 307
+          course explicitly requires you to integrate responsible AI principles — data privacy,
+          fairness, explainability, and security — into your analyses and project work.
+        </p>
+
+        <p>
+          Consider a mechatronics engineer deploying a predictive maintenance AI on a factory floor.
+          The ethical questions are not abstract:
+        </p>
+
+        <div class="callout-box">
+          <span class="callout-label">Real Engineering Ethics Questions</span>
+          <p>
+            <strong>Worker safety:</strong> If the AI incorrectly predicts "no maintenance needed"
+            and a machine fails catastrophically, who is liable? Was the model adequately tested?<br><br>
+            <strong>Job displacement:</strong> If the AI automates the work of experienced maintenance
+            technicians, how was this disclosed to workers? Were they retrained?<br><br>
+            <strong>Data privacy:</strong> If the system uses worker behavior data (logged keystrokes,
+            movement patterns) as features, did workers consent to this data collection?<br><br>
+            <strong>Transparency:</strong> When the AI recommends an emergency shutdown, can it
+            explain why in terms a maintenance engineer can verify and act on?
+          </p>
+        </div>
+
+      </article><!-- /page-main -->
+
+      <!-- ── SIDEBAR ── -->
+      <aside class="page-sidebar">
+
+        <div class="sidebar-box">
+          <h4>The 6 Pillars of Responsible AI</h4>
+          <ul>
+            <li>1. Explainability &amp; Interpretability</li>
+            <li>2. Fairness &amp; Inclusion</li>
+            <li>3. Robustness &amp; Security</li>
+            <li>4. Accountability &amp; Transparency</li>
+            <li>5. Privacy &amp; Compliance</li>
+            <li>6. Human-Centred Design</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Key Risk Categories</h4>
+          <ul>
+            <li>Data risks (bias, poisoning, breaches)</li>
+            <li>Model risks (theft, tampering)</li>
+            <li>Operational risks (drift, bias)</li>
+            <li>Ethics &amp; legal risks (GDPR, discrimination)</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Key Concepts</h4>
+          <ul>
+            <li><strong>XAI:</strong> Explainable Artificial Intelligence</li>
+            <li><strong>Model drift:</strong> Performance degradation over time</li>
+            <li><strong>Feedback loop:</strong> Model predictions affect training data</li>
+            <li><strong>GDPR:</strong> EU data protection law</li>
+            <li><strong>NDPR:</strong> Nigerian Data Protection Regulation</li>
+            <li><strong>RLHF:</strong> Uses humans to correct biased outputs</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Bias Types</h4>
+          <ul>
+            <li>Historical — from past prejudices in data</li>
+            <li>Sampling — non-representative data</li>
+            <li>Measurement — biased proxy features</li>
+            <li>Feedback loop — self-reinforcing predictions</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="topic5-evaluation.html">← Topic V: Evaluation</a></li>
+            <li><a href="index.html">← Back to Front Page</a></li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </div><!-- /page-grid -->
+
+    <!-- ═══════════════════════════════════════════════
+         QUIZ — Topic VI
+    ═══════════════════════════════════════════════ -->
+    <section class="quiz-section" aria-label="Topic Quiz">
+      <div class="quiz-header">
+        <h2>📰 Quiz — Topic VI: AI Ethics &amp; Governance</h2>
+        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--paper-dark);">5 Questions · Select &amp; Submit</span>
+      </div>
+
+      <div class="quiz-body">
+
+        <!-- Q1 -->
+        <div class="quiz-question" data-answer="C">
+          <p class="q-num">Question 01</p>
+          <p class="q-text">An AI hiring tool is trained on historical hiring data from a company where 90% of hires were male. It subsequently rates female candidates lower for technical roles. This is primarily an example of:</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Data poisoning — an attacker deliberately introduced biased data to corrupt the model</button></li>
+            <li><button data-option="B">B) Model drift — the model's performance degraded after deployment due to changing data patterns</button></li>
+            <li><button data-option="C">C) Historical bias — the model learned and amplified existing human prejudices from biased training data</button></li>
+            <li><button data-option="D">D) Measurement bias — a biased proxy feature (like voice pitch) was used in the model</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: C.</strong> Historical bias occurs when training data reflects past human discrimination. The model learns that "male + technical role = hire" is the pattern, because that's what happened historically — not because it's the correct or fair pattern. This is one of the most common and consequential AI ethics failures.
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question" data-answer="B">
+          <p class="q-num">Question 02</p>
+          <p class="q-text">What is "Explainable AI" (XAI) and why is it important in engineering applications?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) An AI that can verbally explain its architecture to non-technical users in plain language</button></li>
+            <li><button data-option="B">B) Processes and methods that enable human users to interpret, comprehend, and trust AI-generated results and outputs — critical when engineers must verify or override AI recommendations</button></li>
+            <li><button data-option="C">C) A technique for reducing a complex model to a simpler form for faster inference</button></li>
+            <li><button data-option="D">D) Documentation practices for writing clear code comments in AI development projects</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: B.</strong> XAI is about making AI decisions understandable and verifiable to humans. In engineering, this is critical: an engineer must be able to understand WHY a predictive maintenance system flagged a component for replacement, so they can validate, challenge, or override the recommendation with domain expertise.
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question" data-answer="D">
+          <p class="q-num">Question 03</p>
+          <p class="q-text">A predictive policing AI flags a neighborhood as high-crime. More police are deployed there, leading to more arrests, which adds to the training data supporting the prediction. This scenario illustrates which type of bias?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Sampling bias — the training data was not representative of all neighborhoods</button></li>
+            <li><button data-option="B">B) Measurement bias — a biased proxy variable was used as a feature</button></li>
+            <li><button data-option="C">C) Historical bias — the model encoded past policing prejudices</button></li>
+            <li><button data-option="D">D) Feedback loop bias — the model's predictions change real-world outcomes that then reinforce the model's predictions</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: D.</strong> Feedback loop bias (also called automation bias or self-fulfilling prophecy bias) occurs when a model's predictions influence the data that will be used to re-train it, creating a self-reinforcing cycle. The model doesn't get corrected — it gets confirmed, regardless of whether its predictions were accurate.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="quiz-question" data-answer="A">
+          <p class="q-num">Question 04</p>
+          <p class="q-text">GDPR (General Data Protection Regulation) places which of the following obligations on organizations using AI with personal data?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Data minimization, the right to explanation of automated decisions, and the right to be forgotten (data deletion)</button></li>
+            <li><button data-option="B">B) Organizations must open-source any AI model trained on data from EU citizens</button></li>
+            <li><button data-option="C">C) AI systems must achieve at least 95% accuracy before processing personal data</button></li>
+            <li><button data-option="D">D) All model training must be done within the EU's national borders on government-approved servers</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: A.</strong> GDPR's key provisions relevant to AI include: (1) Data minimization — only collect what's necessary; (2) Right to explanation — subjects can request explanations of automated decisions affecting them; (3) Right to erasure — individuals can request deletion of their personal data.
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="quiz-question" data-answer="C">
+          <p class="q-num">Question 05</p>
+          <p class="q-text">Which of the following best describes "model drift" and why it poses an operational risk in deployed AI systems?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) A gradual shift in model architecture that occurs as the model continues to train on new data after deployment</button></li>
+            <li><button data-option="B">B) The unauthorized transfer of a model's weights and architecture to a competitor through adversarial queries</button></li>
+            <li><button data-option="C">C) Degradation in model performance over time as real-world data patterns diverge from the distribution seen during training, without the model being updated</button></li>
+            <li><button data-option="D">D) The intentional modification of model parameters by attackers to change its behavior and outputs</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: C.</strong> Model drift (also called concept drift) occurs because the world changes — consumer behaviors shift, diseases mutate, economic conditions evolve — but a deployed model's parameters stay frozen at their training state. Without monitoring and retraining, model performance silently degrades, sometimes catastrophically. Option D describes model tampering (a security threat).
+          </div>
+        </div>
+
+        <button class="quiz-submit-btn">Submit Answers</button>
+
+      </div>
+
+      <div class="quiz-score-panel">
+        <span class="score-num">0 / 5</span>
+        <p class="score-msg"></p>
+      </div>
+
+    </section>
+
+    <hr />
+    <div style="display:flex; justify-content:space-between; padding: 1rem 0; font-family:var(--font-mono); font-size:0.75rem;">
+      <a href="topic5-evaluation.html" class="back-link">← Topic V: Evaluation</a>
+      <a href="index.html" class="back-link">← Return to Front Page</a>
+    </div>
+
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>The AI Intelligencer · GET 307 Study Site · FUTMINNA SIPET</p>
+    <hr class="footer-rule" />
+    <p>Topic VI of VI · AI Ethics &amp; Governance · End of Course</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

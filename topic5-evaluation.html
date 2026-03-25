@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic V: Evaluation &amp; Tuning — GET 307</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-masthead">
+    <div class="masthead-top-rule container">
+      <span>GET 307 · FUTMINNA · SIPET</span>
+      <span>The AI Intelligencer</span>
+      <span>Topic V of VI</span>
+    </div>
+    <h1 class="masthead-title" style="font-size: clamp(2.5rem, 7vw, 5rem);">The AI Intelligencer</h1>
+    <p class="masthead-subtitle">Your Complete Study Companion for GET 307</p>
+  </header>
+
+  <nav class="site-nav" aria-label="Main Navigation">
+    <ul>
+      <li><a href="index.html">Front Page</a></li>
+      <li><a href="topic1-foundations.html">I. AI Foundations</a></li>
+      <li><a href="topic2-machine-learning.html">II. Machine Learning</a></li>
+      <li><a href="topic3-ml-workflow.html">III. ML Workflow</a></li>
+      <li><a href="topic4-algorithms.html">IV. Algorithms</a></li>
+      <li><a href="topic5-evaluation.html">V. Evaluation</a></li>
+      <li><a href="topic6-ethics.html">VI. Ethics &amp; Governance</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <a href="index.html" class="back-link">← Front Page</a>
+      <span class="section-label">Topic V · GET 307 · Model Assessment</span>
+      <hr />
+      <h1>Evaluation Metrics &amp; Hyperparameter Tuning</h1>
+      <div class="byline">Dr. I.M. Simeon, ABE Dept., FUTMINNA · GET 307 Course Materials</div>
+    </div>
+  </div>
+
+  <main>
+  <div class="container">
+    <hr class="thick" />
+
+    <div class="page-grid">
+
+      <article class="page-main">
+
+        <!-- ── Section 1: Why Metrics Matter ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 1</span>
+          <h2>Why Accuracy Alone Is Dangerous</h2>
+        </div>
+
+        <p class="drop-cap">
+          Evaluation metrics quantify how well a machine learning model performs, especially on
+          unseen data. The choice of metric is not trivial — it depends on the problem and the
+          real-world consequences of different types of errors. Using the wrong metric can lead
+          you to deploy a dangerously flawed model with full confidence.
+        </p>
+
+        <div class="callout-box warning">
+          <span class="callout-label">⚠ The Accuracy Trap — A Critical Example</span>
+          <p>
+            Imagine a fraud detection model in a dataset where <strong>99% of transactions are
+            legitimate</strong> and 1% are fraudulent. A model that simply predicts "Legitimate"
+            for every single transaction achieves <strong>99% accuracy</strong> — while catching
+            exactly zero fraud cases. Accuracy here is a completely useless metric.
+            This is the "accuracy paradox" on imbalanced datasets.
+          </p>
+        </div>
+
+        <!-- ── Section 2: Classification Metrics ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 2</span>
+          <h2>Classification Evaluation Metrics</h2>
+        </div>
+
+        <p>Before we can define these metrics, we need the Confusion Matrix — the foundation of all classification evaluation:</p>
+
+        <table>
+          <thead>
+            <tr>
+              <th></th>
+              <th>Predicted: Positive</th>
+              <th>Predicted: Negative</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Actual: Positive</strong></td>
+              <td style="background:#c8e6c9; color:#1b5e20;"><strong>True Positive (TP)</strong> ✓</td>
+              <td style="background:#ffcdd2; color:#b71c1c;"><strong>False Negative (FN)</strong> ✗ (missed it)</td>
+            </tr>
+            <tr>
+              <td><strong>Actual: Negative</strong></td>
+              <td style="background:#ffcdd2; color:#b71c1c;"><strong>False Positive (FP)</strong> ✗ (false alarm)</td>
+              <td style="background:#c8e6c9; color:#1b5e20;"><strong>True Negative (TN)</strong> ✓</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Accuracy -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Accuracy</span>
+          <p style="font-family:var(--font-mono); text-align:center; font-size:1.05rem; margin:0.4rem 0;">
+            Accuracy = (TP + TN) / (TP + TN + FP + FN)
+          </p>
+          <p style="margin:0;">Proportion of all correct predictions. Simple and intuitive. <strong>Misleading for imbalanced datasets.</strong> Best used when classes are roughly equal in size.</p>
+        </div>
+
+        <!-- Precision -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Precision — "When I say positive, am I right?"</span>
+          <p style="font-family:var(--font-mono); text-align:center; font-size:1.05rem; margin:0.4rem 0;">
+            Precision = TP / (TP + FP)
+          </p>
+          <p style="margin:0;">Of all the instances <em>predicted</em> as positive, what fraction actually are? High precision = few false alarms. <strong>Critical when the cost of a false positive is high</strong> (e.g., spam filter wrongly blocking important emails; unnecessary medical treatment).</p>
+        </div>
+
+        <!-- Recall -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Recall (Sensitivity) — "Did I catch all positives?"</span>
+          <p style="font-family:var(--font-mono); text-align:center; font-size:1.05rem; margin:0.4rem 0;">
+            Recall = TP / (TP + FN)
+          </p>
+          <p style="margin:0;">Of all <em>actual</em> positives, what fraction did the model find? High recall = few missed positives. <strong>Critical when the cost of a false negative is high</strong> (e.g., cancer screening missing a true positive; fraud detection missing actual fraud).</p>
+        </div>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: The Net Fisherman</span>
+          <p>
+            <strong>Precision</strong>: Of all the fish you pulled up in your net, what fraction
+            were the type you wanted? High precision = few bycatch (unwanted fish caught by accident).<br><br>
+            <strong>Recall</strong>: Of all the fish of your target type in the lake, what fraction
+            did you catch? High recall = you missed very few target fish.<br><br>
+            <strong>The trade-off</strong>: Use a finer net (higher recall) and you catch more target
+            fish but also more bycatch (lower precision). Use a coarser net (higher precision) and
+            every fish you catch is the right type — but many target fish slip through (lower recall).
+          </p>
+        </div>
+
+        <!-- F1 -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 F1-Score — The Balanced Compromise</span>
+          <p style="font-family:var(--font-mono); text-align:center; font-size:1.05rem; margin:0.4rem 0;">
+            F1 = 2 × (Precision × Recall) / (Precision + Recall)
+          </p>
+          <p style="margin:0;">The harmonic mean of Precision and Recall. It's the go-to metric when <strong>both false positives and false negatives are costly</strong> and when you have imbalanced classes. A high F1 means the model has both high precision AND high recall — hard to achieve, but ideal.</p>
+        </div>
+
+        <!-- ROC-AUC -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 ROC–AUC: Overall Discriminative Power</span>
+          <p style="margin-bottom:0.5rem;">
+            The <strong>ROC (Receiver Operating Characteristic)</strong> curve plots True Positive
+            Rate (Recall) against False Positive Rate at all possible classification thresholds.
+            <strong>AUC (Area Under the Curve)</strong> summarizes the curve into a single number:
+          </p>
+          <ul style="padding-left:1.2rem; margin:0; font-size:0.88rem;">
+            <li><strong>AUC = 1.0:</strong> Perfect model — correctly separates all classes at some threshold</li>
+            <li><strong>AUC = 0.5:</strong> Random chance — no better than flipping a coin</li>
+            <li><strong>AUC &lt; 0.5:</strong> Worse than random (model has its labels backwards)</li>
+          </ul>
+          <p style="margin-top:0.5rem; margin-bottom:0;">ROC-AUC is <strong>threshold-independent</strong> — it evaluates the model's overall ability to discriminate, not just at the default 0.5 cut-off.</p>
+        </div>
+
+        <!-- ── Section 3: Regression Metrics ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 3</span>
+          <h2>Regression Evaluation Metrics</h2>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>Metric</th><th>Formula</th><th>Interpretation</th><th>Sensitivity to Outliers</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>MAE</strong> (Mean Absolute Error)</td>
+              <td style="font-family:var(--font-mono); font-size:0.8rem;">(1/n) Σ|yᵢ − ŷᵢ|</td>
+              <td>Average absolute prediction error. Intuitive, in same units as output.</td>
+              <td>Low (treats all errors equally)</td>
+            </tr>
+            <tr>
+              <td><strong>MSE</strong> (Mean Squared Error)</td>
+              <td style="font-family:var(--font-mono); font-size:0.8rem;">(1/n) Σ(yᵢ − ŷᵢ)²</td>
+              <td>Penalises large errors more than small ones (due to squaring).</td>
+              <td>High (outliers have large impact)</td>
+            </tr>
+            <tr>
+              <td><strong>RMSE</strong> (Root MSE)</td>
+              <td style="font-family:var(--font-mono); font-size:0.8rem;">√MSE</td>
+              <td>Square root of MSE, restores original units. Combines outlier sensitivity with interpretability.</td>
+              <td>High</td>
+            </tr>
+            <tr>
+              <td><strong>R²</strong> (Coefficient of Determination)</td>
+              <td style="font-family:var(--font-mono); font-size:0.8rem;">1 − SS_res/SS_tot</td>
+              <td>Proportion of variance explained. R²=1 perfect; R²=0 no better than mean.</td>
+              <td>Moderate</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ── Section 4: Hyperparameter Tuning ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 4</span>
+          <h2>Hyperparameter Tuning: Controlling the Learning Process</h2>
+        </div>
+
+        <p>
+          In machine learning, <strong>hyperparameters</strong> are parameters set <em>before</em>
+          training begins — they control how the learning process works, not what the model learns.
+          The process of finding the best combination is called <strong>hyperparameter tuning</strong>
+          or <em>hyperparameter optimization</em>.
+        </p>
+
+        <p>
+          Contrast with <em>model parameters</em> (e.g., weights in a neural network, coefficients
+          in linear regression) — these are learned automatically during training.
+          Hyperparameters must be set by the practitioner.
+        </p>
+
+        <!-- Key Hyperparameters -->
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Hyperparameter 1: Epochs</span>
+          <p>
+            An <strong>epoch</strong> is one complete pass of the entire training dataset through
+            the model. If you set epochs = 50, the model processes every training sample 50 times.
+            More epochs generally = better learning (up to a point — after which overfitting begins).
+            Too few = underfitting. <em>Tune this by monitoring training vs. validation loss curves.</em>
+          </p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Hyperparameter 2: Batch Size</span>
+          <p>
+            A <strong>batch</strong> is the number of training samples processed before the model's
+            parameters are updated. If you have 80 images and batch size = 16, you need 80/16 = 5
+            batches to complete one epoch. Smaller batches → noisier but more frequent updates.
+            Larger batches → smoother, more stable updates. This rarely needs extensive tuning.
+          </p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Hyperparameter 3: Learning Rate</span>
+          <p>
+            The <strong>learning rate</strong> controls how fast the model adjusts its parameters
+            during training. <em>Be very careful with this hyperparameter.</em> Small learning rate
+            → slow convergence, may get stuck. Large learning rate → fast but can overshoot the
+            optimal solution and diverge. Typical values: 0.001–0.01. Often the single most
+            impactful hyperparameter to tune.
+          </p>
+        </div>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: Learning Rate as a Vehicle Throttle</span>
+          <p>
+            Imagine you're driving to a precise GPS destination on a foggy mountain road. Learning
+            rate is your throttle. Too slow (0.0001) and you'll barely move — you'll run out of
+            time. Too fast (10.0) and you overshoot every turn and crash. The right learning rate
+            (0.001–0.01) gets you there efficiently: fast enough to make progress, slow enough to
+            adjust for each curve in the road.
+          </p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Hyperparameter 4: Number of Hidden Layers</span>
+          <p>
+            In neural networks, more hidden layers = a more complex model with greater capacity
+            to learn complex patterns. Too few layers → underfitting (too simple for the data).
+            Too many → overfitting and much longer training times.
+          </p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Hyperparameter 5: Regularization Strength (λ)</span>
+          <p>
+            Regularization adds a penalty to the loss function for model complexity, discouraging
+            the model from overfitting. <strong>L1 (Lasso)</strong> can drive some weights to zero
+            (sparse models). <strong>L2 (Ridge)</strong> shrinks all weights toward zero without
+            eliminating them. Higher λ = stronger regularization = simpler model.
+          </p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Hyperparameter 6: Tree Depth (Decision Trees)</span>
+          <p>
+            In decision trees, depth controls how many consecutive decisions are made. Shallow trees
+            are interpretable but may underfit. Deep trees are flexible but easily overfit the
+            training data. This is the kNN K value equivalent for tree models.
+          </p>
+        </div>
+
+        <!-- ── Section 5: Tuning Techniques ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 5</span>
+          <h2>Hyperparameter Tuning Techniques</h2>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>Technique</th><th>How It Works</th><th>Pros</th><th>Cons</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Grid Search</strong></td>
+              <td>Try every combination of specified hyperparameter values</td>
+              <td>Exhaustive — guaranteed to find the best combination within the grid</td>
+              <td>Computationally expensive; scales exponentially with number of hyperparameters</td>
+            </tr>
+            <tr>
+              <td><strong>Random Search</strong></td>
+              <td>Randomly sample combinations from specified distributions</td>
+              <td>Faster than grid search; often finds near-optimal values efficiently</td>
+              <td>Not exhaustive; may miss optimal combination</td>
+            </tr>
+            <tr>
+              <td><strong>Bayesian Optimization</strong></td>
+              <td>Builds a probabilistic model of the objective function; targets promising regions</td>
+              <td>Most sample-efficient; good for expensive evaluations</td>
+              <td>More complex to implement; overhead from building the surrogate model</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="pull-quote">
+          <p>"Accuracy gives an overall correctness. Precision and recall focus on positive predictions. F1 balances both. ROC-AUC measures overall class separability."</p>
+          <cite>— GET 307 Course Materials, Dr. I.M. Simeon</cite>
+        </div>
+
+      </article><!-- /page-main -->
+
+      <!-- ── SIDEBAR ── -->
+      <aside class="page-sidebar">
+
+        <div class="sidebar-box">
+          <h4>Metric Cheat Sheet</h4>
+          <ul>
+            <li><strong>Accuracy:</strong> (TP+TN)/Total</li>
+            <li><strong>Precision:</strong> TP/(TP+FP)</li>
+            <li><strong>Recall:</strong> TP/(TP+FN)</li>
+            <li><strong>F1:</strong> 2×P×R/(P+R)</li>
+            <li><strong>AUC=1:</strong> Perfect model</li>
+            <li><strong>AUC=0.5:</strong> Random guess</li>
+            <li><strong>MAE:</strong> Mean|error|</li>
+            <li><strong>RMSE:</strong> √MSE</li>
+            <li><strong>R²:</strong> 1−SS_res/SS_tot</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>When to Use Which</h4>
+          <ul>
+            <li>Imbalanced classes → F1 or ROC-AUC</li>
+            <li>Cost of FP high → Precision</li>
+            <li>Cost of FN high → Recall</li>
+            <li>Regression → RMSE or R²</li>
+            <li>Outliers present → MAE (robust)</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Hyperparameters</h4>
+          <ul>
+            <li><strong>Epochs:</strong> Full passes over training data</li>
+            <li><strong>Batch size:</strong> Samples per update step</li>
+            <li><strong>Learning rate:</strong> Size of parameter updates</li>
+            <li><strong>Hidden layers:</strong> Network depth/complexity</li>
+            <li><strong>Regularization λ:</strong> Penalty for complexity</li>
+            <li><strong>Tree depth:</strong> Decision tree complexity</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Model vs. Hyperparameter</h4>
+          <ul>
+            <li>Model params → learned during training (weights, biases)</li>
+            <li>Hyperparams → set BEFORE training by practitioner</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="topic4-algorithms.html">← Topic IV: Algorithms</a></li>
+            <li><a href="topic6-ethics.html">Topic VI: Ethics →</a></li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </div><!-- /page-grid -->
+
+    <!-- ═══════════════════════════════════════════════
+         QUIZ — Topic V
+    ═══════════════════════════════════════════════ -->
+    <section class="quiz-section" aria-label="Topic Quiz">
+      <div class="quiz-header">
+        <h2>📰 Quiz — Topic V: Evaluation &amp; Tuning</h2>
+        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--paper-dark);">5 Questions · Select &amp; Submit</span>
+      </div>
+
+      <div class="quiz-body">
+
+        <!-- Q1 -->
+        <div class="quiz-question" data-answer="D">
+          <p class="q-num">Question 01</p>
+          <p class="q-text">A disease screening model achieves 99% accuracy on a dataset where only 1% of patients have the disease. What does this tell us about the model's performance?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) The model is excellent and suitable for deployment in hospitals</button></li>
+            <li><button data-option="B">B) The model is overfitting to the training data</button></li>
+            <li><button data-option="C">C) The model needs more training data to reach 100% accuracy</button></li>
+            <li><button data-option="D">D) The 99% accuracy is misleading — the model may simply predict "healthy" for everyone and miss nearly all actual cases</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: D.</strong> This is the "accuracy paradox" on imbalanced datasets. A model predicting "healthy" for every patient achieves 99% accuracy while catching zero disease cases (Recall = 0%). For medical diagnosis, Recall (sensitivity) is far more important — missing a true positive is dangerous.
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question" data-answer="B">
+          <p class="q-num">Question 02</p>
+          <p class="q-text">Precision measures which of the following?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) The proportion of actual positives that the model correctly identified</button></li>
+            <li><button data-option="B">B) The proportion of instances predicted as positive that are actually positive</button></li>
+            <li><button data-option="C">C) The overall proportion of correct predictions across both classes</button></li>
+            <li><button data-option="D">D) The area under the ROC curve for the model's threshold-independent performance</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: B.</strong> Precision = TP / (TP + FP). It answers: "When the model predicts positive, how often is it right?" Option A describes Recall. Option C describes Accuracy. Precision is critical when false positives are costly (e.g., spam filters, legal fraud accusations).
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question" data-answer="C">
+          <p class="q-num">Question 03</p>
+          <p class="q-text">What is the F1-score, and why is it preferred over accuracy for imbalanced datasets?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) The arithmetic mean of precision and recall; it's preferred because it's simpler to calculate</button></li>
+            <li><button data-option="B">B) The ratio of true positives to all predictions; preferred because it ignores false negatives</button></li>
+            <li><button data-option="C">C) The harmonic mean of precision and recall; preferred because it balances both false positives and false negatives and is not skewed by class imbalance</button></li>
+            <li><button data-option="D">D) The area under the precision-recall curve; preferred because it works only for binary classification</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: C.</strong> F1 = 2 × (P × R) / (P + R). The harmonic mean is used (not arithmetic mean) because it gives lower weight to extreme values — a model with P=1.0 and R=0.001 gets F1 ≈ 0.002, not 0.5. This prevents a model from gaming the metric by being extremely conservative.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="quiz-question" data-answer="A">
+          <p class="q-num">Question 04</p>
+          <p class="q-text">In neural network training, what does the learning rate control?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) The size of the parameter update steps during gradient descent — too high causes divergence; too low causes very slow convergence</button></li>
+            <li><button data-option="B">B) The number of times the model passes through the entire training dataset</button></li>
+            <li><button data-option="C">C) The number of training samples processed before each parameter update</button></li>
+            <li><button data-option="D">D) The threshold probability above which a logistic regression model predicts the positive class</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: A.</strong> The learning rate (α) scales the gradient in gradient descent: θ = θ − α × ∇L. Too large → overshoot the minimum → diverge. Too small → converge extremely slowly. Option B describes Epochs; Option C describes Batch Size.
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="quiz-question" data-answer="D">
+          <p class="q-num">Question 05</p>
+          <p class="q-text">What is the key distinction between model parameters and hyperparameters in machine learning?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Model parameters are set by the practitioner before training; hyperparameters are learned from data</button></li>
+            <li><button data-option="B">B) Model parameters control the training process; hyperparameters are the final learned weights</button></li>
+            <li><button data-option="C">C) Both are set before training — they are different names for the same concept</button></li>
+            <li><button data-option="D">D) Model parameters (weights, biases) are learned automatically during training; hyperparameters (learning rate, epochs, K) are set by the practitioner before training begins</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: D.</strong> This is a fundamental distinction. Parameters (weights in a neural network, β coefficients in regression) are what training adjusts automatically. Hyperparameters (learning rate, number of layers, K in kNN, tree depth) must be specified by the practitioner and control how training works.
+          </div>
+        </div>
+
+        <button class="quiz-submit-btn">Submit Answers</button>
+
+      </div>
+
+      <div class="quiz-score-panel">
+        <span class="score-num">0 / 5</span>
+        <p class="score-msg"></p>
+      </div>
+
+    </section>
+
+    <hr />
+    <div style="display:flex; justify-content:space-between; padding: 1rem 0; font-family:var(--font-mono); font-size:0.75rem;">
+      <a href="topic4-algorithms.html" class="back-link">← Topic IV: Algorithms</a>
+      <a href="topic6-ethics.html" class="back-link">Topic VI: Ethics &amp; Governance →</a>
+    </div>
+
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>The AI Intelligencer · GET 307 Study Site · FUTMINNA SIPET</p>
+    <hr class="footer-rule" />
+    <p>Topic V of VI · Evaluation &amp; Hyperparameter Tuning</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic IV: Classical ML Algorithms — GET 307</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-masthead">
+    <div class="masthead-top-rule container">
+      <span>GET 307 · FUTMINNA · SIPET</span>
+      <span>The AI Intelligencer</span>
+      <span>Topic IV of VI</span>
+    </div>
+    <h1 class="masthead-title" style="font-size: clamp(2.5rem, 7vw, 5rem);">The AI Intelligencer</h1>
+    <p class="masthead-subtitle">Your Complete Study Companion for GET 307</p>
+  </header>
+
+  <nav class="site-nav" aria-label="Main Navigation">
+    <ul>
+      <li><a href="index.html">Front Page</a></li>
+      <li><a href="topic1-foundations.html">I. AI Foundations</a></li>
+      <li><a href="topic2-machine-learning.html">II. Machine Learning</a></li>
+      <li><a href="topic3-ml-workflow.html">III. ML Workflow</a></li>
+      <li><a href="topic4-algorithms.html">IV. Algorithms</a></li>
+      <li><a href="topic5-evaluation.html">V. Evaluation</a></li>
+      <li><a href="topic6-ethics.html">VI. Ethics &amp; Governance</a></li>
+    </ul>
+  </nav>
+
+  <div class="page-header">
+    <div class="container">
+      <a href="index.html" class="back-link">← Front Page</a>
+      <span class="section-label">Topic IV · GET 307 · Classical Algorithms</span>
+      <hr />
+      <h1>Classical ML Algorithms: KNN, Regression &amp; Linear Models</h1>
+      <div class="byline">Dr. I.M. Simeon, ABE Dept., FUTMINNA · GET 307 Course Materials</div>
+    </div>
+  </div>
+
+  <main>
+  <div class="container">
+    <hr class="thick" />
+
+    <div class="page-grid">
+
+      <article class="page-main">
+
+        <!-- ── Section 1: Two Families ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 1</span>
+          <h2>Two Foundational Families of ML Models</h2>
+        </div>
+
+        <p class="drop-cap">
+          In machine learning, models can be broadly grouped by how they learn patterns from data.
+          Two foundational categories are <strong>distance-based models</strong> and
+          <strong>linear models</strong> — the workhorses of classical machine learning, still
+          widely used in engineering applications today.
+        </p>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Model Family</th>
+              <th>Core Idea</th>
+              <th>Main Example</th>
+              <th>Best When</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Distance-Based</strong></td>
+              <td>Predict based on similarity to known examples</td>
+              <td>k-Nearest Neighbors (kNN)</td>
+              <td>Small datasets, well-scaled features, no assumptions on data distribution</td>
+            </tr>
+            <tr>
+              <td><strong>Linear Models</strong></td>
+              <td>Learn an explicit mathematical relationship between inputs and output</td>
+              <td>Linear Regression, Logistic Regression</td>
+              <td>Interpretability required, linear relationships exist in data</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- ── Section 2: KNN ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 2</span>
+          <h2>k-Nearest Neighbors (kNN): The Neighbourhood Vote</h2>
+        </div>
+
+        <p>
+          The <strong>k-Nearest Neighbors algorithm</strong> is perhaps the most intuitive ML
+          algorithm. It makes predictions by comparing a new (unseen) data point to existing
+          examples in the training dataset using a distance measure. The prediction is determined
+          by a "neighbourhood vote":
+        </p>
+
+        <ul style="padding-left: 1.5rem; margin-bottom: 1rem;">
+          <li style="margin-bottom:0.5rem;"><strong>Classification:</strong> The new point is assigned the class most common among its K nearest neighbours (majority vote).</li>
+          <li><strong>Regression:</strong> The new point is predicted as the average value of its K nearest neighbours.</li>
+        </ul>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: Moving to a New Neighbourhood</span>
+          <p>
+            Imagine you just moved to a new city and want to know if it's safe. You don't have a
+            safety score — but you can look at the 5 houses nearest to yours. If 4 out of 5 are
+            well-maintained with gardens and good lighting, you conclude it's a safe neighbourhood.
+            That's kNN: you're classified by the majority vote of your K nearest neighbours (K=5 here).
+            Change K to 1, and you'd be classified by the single nearest house — potentially misleading.
+          </p>
+        </div>
+
+        <!-- ── Section 3: Steps of KNN ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 3</span>
+          <h2>Steps to Implement kNN and Calculate K-Distance</h2>
+        </div>
+
+        <ol class="workflow-steps">
+          <li>
+            <div class="step-body">
+              <div class="step-title">Define K</div>
+              <p class="step-desc">Choose the number of nearest neighbours to consider. K is a hyperparameter — you set it before training. Small K = more complex, noise-sensitive model. Large K = smoother, less flexible model.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <div class="step-title">Calculate Distances</div>
+              <p class="step-desc">Compute the distance between the input query point and every point in the training dataset using one of the distance metrics below.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <div class="step-title">Sort Distances</div>
+              <p class="step-desc">Arrange the calculated distances in ascending order (closest first).</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <div class="step-title">Identify the K-th Distance</div>
+              <p class="step-desc">The K-distance is the distance value at the K-th position in the sorted list. All points with distance ≤ this K-th distance are considered neighbours.</p>
+            </div>
+          </li>
+          <li>
+            <div class="step-body">
+              <div class="step-title">Select Neighbours and Predict</div>
+              <p class="step-desc">Use the K selected neighbours to make a prediction via majority vote (classification) or average value (regression).</p>
+            </div>
+          </li>
+        </ol>
+
+        <!-- ── Section 4: Distance Metrics ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 4</span>
+          <h2>Distance Metrics: How "Closeness" Is Measured</h2>
+        </div>
+
+        <p>
+          The definition of "nearest" depends entirely on the distance metric you choose.
+          The three most common metrics in kNN are:
+        </p>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 1. Euclidean Distance (L2 Norm) — Most Common</span>
+          <p style="font-family:var(--font-mono); text-align:center; font-size:1.05rem; margin: 0.5rem 0;">
+            d(x, y) = √ Σⱼ (xⱼ − yⱼ)²
+          </p>
+          <p style="margin:0;">The straight-line ("as the crow flies") distance between two points in d-dimensional space. For 2D: √((x₁−y₁)² + (x₂−y₂)²). This is Pythagoras' theorem extended to multiple dimensions.</p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 2. Manhattan Distance (L1 Norm) — Grid-Based</span>
+          <p style="font-family:var(--font-mono); text-align:center; font-size:1.05rem; margin: 0.5rem 0;">
+            d(x, y) = Σⱼ |xⱼ − yⱼ|
+          </p>
+          <p style="margin:0;">Distance measured along axis-aligned paths — like navigating city blocks. You can only move horizontally or vertically, never diagonally. Useful when features represent independent discrete steps.</p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 3. Minkowski Distance — The General Form</span>
+          <p style="font-family:var(--font-mono); text-align:center; font-size:1.05rem; margin: 0.5rem 0;">
+            d(x, y) = (Σⱼ |xⱼ − yⱼ|ᵖ)^(1/p)
+          </p>
+          <p style="margin:0;">A generalisation: when p=2, it equals Euclidean distance. When p=1, it equals Manhattan distance. By tuning p, you control the sensitivity to large differences in any single dimension.</p>
+        </div>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: Crow vs. Taxi</span>
+          <p>
+            <strong>Euclidean distance</strong> is how a crow measures distance — straight line, no
+            obstacles. <strong>Manhattan distance</strong> is how a Lagos taxi measures distance —
+            you can't drive through buildings, you take the grid of streets. For data in a structured
+            grid (like pixels in an image, or grid-based sensor readings), Manhattan distance is more
+            naturally meaningful. For continuous, multi-dimensional data, Euclidean is often the
+            better default.
+          </p>
+        </div>
+
+        <!-- ── Section 5: Worked Example ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 5</span>
+          <h2>Worked Numerical Example: K = 3</h2>
+        </div>
+
+        <p>
+          Suppose a query point has the following computed distances to five training points:
+        </p>
+
+        <table>
+          <thead>
+            <tr><th>Training Point</th><th>Distance to Query</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Point A</td><td>2.5</td></tr>
+            <tr><td>Point B</td><td>1.2</td></tr>
+            <tr><td>Point C</td><td>3.8</td></tr>
+            <tr><td>Point D</td><td>0.5</td></tr>
+            <tr><td>Point E</td><td>4.2</td></tr>
+          </tbody>
+        </table>
+
+        <p><strong>Step 1 — Sort ascending:</strong> [0.5, 1.2, 2.5, 3.8, 4.2]</p>
+        <p><strong>Step 2 — K = 3, so K-distance = 2.5</strong> (the 3rd value in sorted list)</p>
+        <p><strong>Step 3 — Neighbours:</strong> Points D (0.5), B (1.2), and A (2.5) are selected.</p>
+        <p><strong>Step 4 — Predict:</strong> If these 3 neighbours have classes [Positive, Positive, Negative] → majority vote = <strong>Positive</strong>.</p>
+
+        <!-- ── Section 6: Python Implementation ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 6</span>
+          <h2>Python Implementation with scikit-learn</h2>
+        </div>
+
+        <p>The following code demonstrates kNN using scikit-learn's <code>NearestNeighbors</code> class:</p>
+
+        <pre><code>import numpy as np
+from sklearn.neighbors import NearestNeighbors
+
+# Sample training data (5 points in 2D space)
+X = [[1, 2], [2, 3], [3, 4], [6, 7], [7, 8]]
+
+# Query point — we want to classify/predict for this
+query_point = [[4, 5]]
+k = 3
+
+# Fit the NearestNeighbors model
+nn = NearestNeighbors(n_neighbors=k)
+nn.fit(X)
+
+# Find the K nearest neighbours and their distances
+distances, indices = nn.kneighbors(query_point)
+
+print("Distances:", distances[0])
+# Output: distances to the 3 nearest neighbours
+
+print("K-distance (3rd nearest):", distances[0][-1])
+# Output: the distance to the K-th nearest neighbour
+
+print("Neighbour indices:", indices[0])
+# Output: indices into X of the K nearest neighbours</code></pre>
+
+        <div class="callout-box warning">
+          <span class="callout-label">⚠ Critical Gotcha: Feature Scaling</span>
+          <p>
+            kNN is <strong>extremely sensitive to feature scaling</strong>. If Feature A ranges from
+            0 to 1 and Feature B ranges from 0 to 10,000, distance calculations will be dominated
+            entirely by Feature B. Always normalise or standardise features before using kNN.
+            Use <code>StandardScaler</code> or <code>MinMaxScaler</code> from scikit-learn.
+          </p>
+        </div>
+
+        <!-- ── Section 7: Linear Models ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 7</span>
+          <h2>Linear Models: Learning Mathematical Relationships</h2>
+        </div>
+
+        <p>
+          Linear models assume a linear relationship between input features and the output.
+          They are the simplest, most interpretable family of ML models and often serve as
+          the baseline against which more complex models are benchmarked.
+        </p>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Linear Regression — For Continuous Outputs</span>
+          <p>
+            Linear regression predicts a continuous outcome by fitting a straight line (or
+            hyperplane in multiple dimensions) through the data that minimises prediction error
+            (specifically, minimises the sum of squared residuals).
+          </p>
+          <p style="font-family:var(--font-mono); text-align:center; font-size:1.05rem; margin: 0.5rem 0;">
+            ŷ = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ
+          </p>
+          <p style="margin:0;">Where β₀ is the intercept, β₁...βₙ are learned coefficients, and x₁...xₙ are input features. Training finds the β values that minimise MSE.</p>
+        </div>
+
+        <div class="callout-box definition">
+          <span class="callout-label">📖 Logistic Regression — For Classification (Despite the Name!)</span>
+          <p>
+            Despite its name, logistic regression is a <em>classification</em> algorithm, not a
+            regression algorithm. It models the <strong>probability</strong> that an input belongs
+            to a particular class using a sigmoid (logistic) function, then assigns a class based
+            on a probability threshold (typically 0.5).
+          </p>
+          <p style="font-family:var(--font-mono); text-align:center; font-size:1.05rem; margin: 0.5rem 0;">
+            P(y=1 | x) = σ(β₀ + β₁x₁ + ... + βₙxₙ)
+          </p>
+          <p style="margin:0;">Where σ(z) = 1 / (1 + e^(−z)) is the sigmoid function. Output is always between 0 and 1 — a probability. Prediction: if P &gt; 0.5 → Class 1; if P ≤ 0.5 → Class 0.</p>
+        </div>
+
+        <div class="callout-box analogy">
+          <span class="callout-label">🗞️ Analogy: The Exam Score vs. Pass/Fail Decision</span>
+          <p>
+            <strong>Linear regression</strong> is like predicting a student's exam score (a number
+            on a continuous scale from 0 to 100) based on hours studied.<br><br>
+            <strong>Logistic regression</strong> is like deciding whether the student <em>passes or
+            fails</em> — a binary outcome. It asks: "Given the hours studied, what is the probability
+            of passing?" If P(pass) &gt; 0.5, predict "Pass." The sigmoid function squashes any linear
+            combination into a [0,1] probability range — which is much more sensible for a yes/no
+            output than a raw linear number.
+          </p>
+        </div>
+
+        <!-- ── Section 8: Choosing Your Algorithm ── -->
+        <div class="section-head">
+          <span class="section-kicker">Section 8</span>
+          <h2>Summary: When to Use Which Algorithm</h2>
+        </div>
+
+        <table>
+          <thead>
+            <tr><th>Algorithm</th><th>Problem Type</th><th>Pros</th><th>Cons</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>kNN</strong></td>
+              <td>Classification &amp; Regression</td>
+              <td>Simple, no training phase, intuitive</td>
+              <td>Slow on large datasets, sensitive to feature scaling and irrelevant features</td>
+            </tr>
+            <tr>
+              <td><strong>Linear Regression</strong></td>
+              <td>Regression only</td>
+              <td>Interpretable, fast, works well on linear data</td>
+              <td>Fails on non-linear relationships, sensitive to outliers</td>
+            </tr>
+            <tr>
+              <td><strong>Logistic Regression</strong></td>
+              <td>Binary/multi-class Classification</td>
+              <td>Interpretable, probabilistic output, efficient</td>
+              <td>Assumes linear decision boundary — fails on complex, non-linear problems</td>
+            </tr>
+          </tbody>
+        </table>
+
+      </article><!-- /page-main -->
+
+      <!-- ── SIDEBAR ── -->
+      <aside class="page-sidebar">
+
+        <div class="sidebar-box">
+          <h4>Key Algorithms</h4>
+          <ul>
+            <li><strong>kNN:</strong> Distance-based, no training, lazy learner</li>
+            <li><strong>Linear Regression:</strong> Continuous output, minimises MSE</li>
+            <li><strong>Logistic Regression:</strong> Binary classification via sigmoid</li>
+            <li>Others: Decision Trees, SVM, Random Forest, Clustering</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Distance Metrics</h4>
+          <ul>
+            <li><strong>Euclidean (L2):</strong> Straight-line distance</li>
+            <li><strong>Manhattan (L1):</strong> Grid/city-block distance</li>
+            <li><strong>Minkowski:</strong> General form (p=1 or p=2)</li>
+            <li>⚠ Always scale features before using distance metrics!</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Key Formulas</h4>
+          <ul>
+            <li>Euclidean: √Σ(xⱼ−yⱼ)²</li>
+            <li>Manhattan: Σ|xⱼ−yⱼ|</li>
+            <li>Linear Reg: ŷ = β₀ + β₁x₁ + ...</li>
+            <li>Sigmoid: σ(z) = 1/(1+e^−z)</li>
+            <li>Logistic: P(y=1|x) = σ(βᵀx)</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>The K Hyperparameter</h4>
+          <ul>
+            <li>Small K → complex, overfits to noise</li>
+            <li>Large K → smoother, may underfit</li>
+            <li>Odd K avoids ties in binary classification</li>
+            <li>Typical starting points: K=3, 5, 7</li>
+          </ul>
+        </div>
+
+        <div class="sidebar-box">
+          <h4>Navigation</h4>
+          <ul>
+            <li><a href="topic3-ml-workflow.html">← Topic III: ML Workflow</a></li>
+            <li><a href="topic5-evaluation.html">Topic V: Evaluation →</a></li>
+          </ul>
+        </div>
+
+      </aside>
+
+    </div><!-- /page-grid -->
+
+    <!-- ═══════════════════════════════════════════════
+         QUIZ — Topic IV
+    ═══════════════════════════════════════════════ -->
+    <section class="quiz-section" aria-label="Topic Quiz">
+      <div class="quiz-header">
+        <h2>📰 Quiz — Topic IV: Classical ML Algorithms</h2>
+        <span style="font-family:var(--font-mono); font-size:0.7rem; color:var(--paper-dark);">5 Questions · Select &amp; Submit</span>
+      </div>
+
+      <div class="quiz-body">
+
+        <!-- Q1 -->
+        <div class="quiz-question" data-answer="B">
+          <p class="q-num">Question 01</p>
+          <p class="q-text">In the k-Nearest Neighbors algorithm, how is the prediction determined for a classification task?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) The class with the globally highest frequency in the training dataset</button></li>
+            <li><button data-option="B">B) The majority class among the K nearest neighbours (by distance) to the query point</button></li>
+            <li><button data-option="C">C) The class predicted by fitting a linear boundary through the training data</button></li>
+            <li><button data-option="D">D) A probability calculated using the sigmoid function applied to distances</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: B.</strong> kNN for classification uses a majority vote of the K closest training examples. No model is trained — predictions are made at inference time by computing distances. This is why kNN is called a "lazy learner."
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="quiz-question" data-answer="C">
+          <p class="q-num">Question 02</p>
+          <p class="q-text">A query point has distances to 5 training points: [3.1, 0.8, 5.5, 1.4, 2.3]. With K=3, what is the K-distance and which points are neighbours?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) K-distance = 5.5; points with distance ≤ 5.5 are neighbours (all 5)</button></li>
+            <li><button data-option="B">B) K-distance = 1.4; only the 2 closest points are neighbours</button></li>
+            <li><button data-option="C">C) K-distance = 2.3; the 3 points with distances 0.8, 1.4, and 2.3 are neighbours</button></li>
+            <li><button data-option="D">D) K-distance = 3.1; the 4 closest points are neighbours</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: C.</strong> Sorted distances: [0.8, 1.4, 2.3, 3.1, 5.5]. The 3rd value (K=3) is 2.3 — this is the K-distance. The 3 nearest neighbours are those with distances 0.8, 1.4, and 2.3 (all ≤ 2.3).
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="quiz-question" data-answer="D">
+          <p class="q-num">Question 03</p>
+          <p class="q-text">Why is feature scaling (normalisation/standardisation) critical before applying kNN?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Because kNN cannot handle numerical features without scaling</button></li>
+            <li><button data-option="B">B) Because scaling makes the training process faster for the kNN algorithm</button></li>
+            <li><button data-option="C">C) Because unscaled features cause the sigmoid function to output values outside [0,1]</button></li>
+            <li><button data-option="D">D) Because features with large value ranges will dominate distance calculations, making other features irrelevant</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: D.</strong> If Feature A is 0–1 and Feature B is 0–10,000, distances are almost entirely determined by Feature B. Scaling (e.g., StandardScaler) puts all features on comparable ranges, so each contributes fairly to distance calculations.
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="quiz-question" data-answer="A">
+          <p class="q-num">Question 04</p>
+          <p class="q-text">Despite its name, Logistic Regression is used for which type of machine learning task?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Classification — it predicts the probability that an input belongs to a class</button></li>
+            <li><button data-option="B">B) Regression — it predicts continuous numerical outcomes like temperature or price</button></li>
+            <li><button data-option="C">C) Unsupervised clustering — it groups data points into categories without labels</button></li>
+            <li><button data-option="D">D) Reinforcement learning — it uses reward signals to learn classification boundaries</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: A.</strong> Despite "regression" in its name, Logistic Regression is a classification algorithm. It uses the sigmoid function to output a probability (0 to 1), then assigns a class based on a threshold (typically 0.5). It's a common exam trick question!
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="quiz-question" data-answer="B">
+          <p class="q-num">Question 05</p>
+          <p class="q-text">What is the key difference between Euclidean and Manhattan distance?</p>
+          <ul class="quiz-options">
+            <li><button data-option="A">A) Euclidean distance works in 2D only; Manhattan distance works in any dimension</button></li>
+            <li><button data-option="B">B) Euclidean measures straight-line distance between points; Manhattan measures distance along axis-aligned paths (like city blocks)</button></li>
+            <li><button data-option="C">C) Euclidean is used for regression; Manhattan is used for classification</button></li>
+            <li><button data-option="D">D) They are mathematically equivalent but computed differently for efficiency</button></li>
+          </ul>
+          <div class="quiz-explanation">
+            <strong>Correct: B.</strong> Euclidean distance is the "crow flies" straight-line distance (involves square root). Manhattan distance sums absolute differences along each axis — like navigating a grid city where you can only move along streets, not diagonally. Both work in any number of dimensions.
+          </div>
+        </div>
+
+        <button class="quiz-submit-btn">Submit Answers</button>
+
+      </div>
+
+      <div class="quiz-score-panel">
+        <span class="score-num">0 / 5</span>
+        <p class="score-msg"></p>
+      </div>
+
+    </section>
+
+    <hr />
+    <div style="display:flex; justify-content:space-between; padding: 1rem 0; font-family:var(--font-mono); font-size:0.75rem;">
+      <a href="topic3-ml-workflow.html" class="back-link">← Topic III: ML Workflow</a>
+      <a href="topic5-evaluation.html" class="back-link">Topic V: Evaluation →</a>
+    </div>
+
+  </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>The AI Intelligencer · GET 307 Study Site · FUTMINNA SIPET</p>
+    <hr class="footer-rule" />
+    <p>Topic IV of VI · Classical ML Algorithms</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
